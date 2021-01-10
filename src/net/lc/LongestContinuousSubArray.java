@@ -1,13 +1,14 @@
 package net.lc;
 
 /**
+ * 1438
  * https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
  * Two-pointer
  */
-public class LargestContinuousSubArray {
+public class LongestContinuousSubArray {
     public int longestSubarray(int[] nums, int limit) {
         int left = 0;
-        int right = 0;
+        int right;
         int maxLen = 1;
 
         int curMax = 0;
@@ -69,22 +70,22 @@ public class LargestContinuousSubArray {
     public static void main(String[] args) {
         {
             int[] array = { 10, 1, 2, 4, 7, 2 };
-            System.out.println(new LargestContinuousSubArray().longestSubarray(array, 5));
+            System.out.println(new LongestContinuousSubArray().longestSubarray(array, 5));
         }
 
         {
             int[] array = {4,2,2,2,4,4,2,2 };
-            System.out.println(new LargestContinuousSubArray().longestSubarray(array, 0));
+            System.out.println(new LongestContinuousSubArray().longestSubarray(array, 0));
         }
 
         {
             int[] array = {1,5,6,7,8,10,6,5,6};
-            System.out.println(new LargestContinuousSubArray().longestSubarray(array, 4));
+            System.out.println(new LongestContinuousSubArray().longestSubarray(array, 4));
         }
 
         {
             int[] array = {8,2,4,7};
-            System.out.println(new LargestContinuousSubArray().longestSubarray(array, 4));
+            System.out.println(new LongestContinuousSubArray().longestSubarray(array, 4));
         }
     }
 }

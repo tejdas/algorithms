@@ -4,8 +4,10 @@ import net.lc.BinaryTreeBuilder.*;
 import java.util.Arrays;
 
 /**
+ * 437
  * https://leetcode.com/problems/path-sum-iii/submissions/
  * Binary Tree
+ * Pre-order
  */
 public class PathSumIII {
     private int targetSum;
@@ -20,22 +22,24 @@ public class PathSumIII {
         return result;
     }
 
-    private void dfs(TreeNode curNode, int level, int sum, int[] array) {
+    private void dfs(TreeNode curNode, int level, int sum, int[] sumTillLevel) {
         if (curNode == null) {
             return;
         }
 
         int newSum = sum+curNode.val;
-        array[level] = newSum;
+        sumTillLevel[level] = newSum;
         if (newSum == targetSum) result++;
         if (level > 0 && curNode.val == targetSum) result++;
 
         for (int i = 0; i < level-1; i++) {
-            if (newSum-array[i] == targetSum) result++;
+            // if the delta between sumTillLevel(i) and sumTillLevel(j) (where j < i)
+            // is targetSum, then we find a new path.
+            if (newSum-sumTillLevel[i] == targetSum) result++;
         }
 
-        dfs(curNode.left, level+1, newSum, array);
-        dfs(curNode.right, level+1, newSum, array);
+        dfs(curNode.left, level+1, newSum, sumTillLevel);
+        dfs(curNode.right, level+1, newSum, sumTillLevel);
     }
 
     public static void main(String[] args) {

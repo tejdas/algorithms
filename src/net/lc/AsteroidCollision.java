@@ -6,7 +6,7 @@ import java.util.Stack;
  * 735
  * Stack
  */
-public class AsteroidCollision
+public class AsteroidCollision {
     public int[] asteroidCollision(int[] asteroids) {
         if (asteroids == null || asteroids.length == 0) return null;
 
