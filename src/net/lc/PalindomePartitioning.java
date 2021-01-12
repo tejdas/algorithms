@@ -6,10 +6,17 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * 131
  * https://leetcode.com/problems/palindrome-partitioning/submissions/
- * Back-tracking
+ * Back-tracking (DFS)
  */
 public class PalindomePartitioning {
+    /**
+     * memoMap[x][y]
+     * -1 // not computed
+     * 1 // palindrome
+     * 0 // not palindrome
+     */
     private int[][] memoMap;
     char[] array;
     String s;

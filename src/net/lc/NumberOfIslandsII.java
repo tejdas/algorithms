@@ -12,11 +12,33 @@ public class NumberOfIslandsII {
     private static final int[][] neighs = {{-1, 0}, {1,0}, {0,-1}, {0,1}};
     static class UnionFind {
         int count = 0; // # of connected components
+        /**
+         * Root parent of the cell
+         */
         int[] parent;
+        /**
+         * Rank of the root nodes.
+         * When a cell is united with another cell,
+         * the higher ranked root-node is chosen.
+         * If the rank of two islands' root nodes are same,
+         * increment one of them and break the tie.
+         */
         int[] rank;
         int[][] grid;
         int rows, cols;
 
+        /**
+         * Use a one-dimensional array to represent the 2D grid.
+         * index = x * cols + y
+         *
+         * Initially, each cell is an island in itself.
+         * Parent of each cell is the cell itself.
+         *
+         * Then, start to Union a cell with its neighbors (1).
+         *
+         * @param m
+         * @param n
+         */
         public UnionFind(int m, int n) {
             this.rows = m;
             this.cols = n;
@@ -43,23 +65,41 @@ public class NumberOfIslandsII {
             }
         }
 
-        private int find(int i) { // path compression
-            if (parent[i] != i) parent[i] = find(parent[i]);
-            return parent[i];
+        /**
+         * If the current Node is root, do nothing.
+         * Otherwise, set its parentId to root of parentId.
+         * @param i
+         * @return
+         */
+        private int findRoot(int i) { // path compression
+            int rootId = parent[i];
+            if (rootId != i) {
+                rootId = findRoot(rootId);
+                parent[i] = rootId;
+            }
+            return rootId;
         }
 
         private void union(int x, int y) { // union with rank
-            int rootx = find(x);
-            int rooty = find(y);
+            int rootx = findRoot(x);
+            int rooty = findRoot(y);
             if (rootx != rooty) {
                 if (rank[rootx] > rank[rooty]) {
                     parent[rooty] = rootx;
                 } else if (rank[rootx] < rank[rooty]) {
                     parent[rootx] = rooty;
                 } else {
+                    /**
+                     * pick one of the root. Bump up its rank by 1.
+                     */
                     parent[rooty] = rootx; rank[rootx] += 1;
                 }
+                /**
+                 * After the union, we have one less island.
+                 */
                 --count;
+            } else {
+                // already belong to the same island
             }
         }
 

@@ -23,7 +23,10 @@ public class ShortestBridge {
     private int[][] grid;
     private int[][] distance;
     private int len;
-    private final List<int[]> list = new ArrayList<>();
+    /**
+     * A borderCell[i][j] has value 1, but one of its adjacent cells  is 0 (water)
+     */
+    private final List<int[]> borderCells = new ArrayList<>();
     public int shortestBridge(int[][] A) {
 
         len = A.length;
@@ -44,7 +47,7 @@ public class ShortestBridge {
 
         int shortestD = Integer.MAX_VALUE;
 
-        for (int[] pos : list) {
+        for (int[] pos : borderCells) {
             int dist = bfs(pos[0], pos[1]);
             shortestD = Math.min(shortestD, dist);
         }
@@ -71,7 +74,7 @@ public class ShortestBridge {
         }
 
         if (border) {
-            list.add(new int[]{curx, cury});
+            borderCells.add(new int[]{curx, cury});
         }
     }
 

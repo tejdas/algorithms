@@ -3,21 +3,24 @@ package net.lc;
 import java.util.*;
 
 /**
+ * 842
  * https://leetcode.com/problems/split-array-into-fibonacci-sequence/submissions/
- * Back-tracking
+ * Back-tracking (DFS stack)
  */
 public class SplitArrayIntoFibSequence {
     private int getInteger(int[] iarray, int from, int to) {
         if (to < from)
             return -1;
 
-        if (to + 1 - from > 10)
+        if (to + 1 - from > 10) {
+            // will cause overflow
             return -1;
+        }
 
         int sum = 0;
         for (int i = from; i <= to; i++) {
             sum = sum * 10 + iarray[i];
-            if (sum < 0)
+            if (sum < 0) //encountered overflow
                 return -1;
         }
         return sum;
@@ -33,6 +36,10 @@ public class SplitArrayIntoFibSequence {
 
         int len = array.length;
 
+        /**
+         * pick all possible first and second values, and start
+         * recursion/back-track from there, using DFS/stack.
+         */
         Stack<Integer> stack = new Stack<>();
         int ilen = Math.min(10, len);
         for (int i = 0; i < ilen; i++) {
@@ -102,23 +109,6 @@ public class SplitArrayIntoFibSequence {
     }
 
     public static void main(String[] args) {
-        /*
-        System.out.println(Integer.MAX_VALUE);
-
-        System.out.println(Integer.MAX_VALUE + 10);
-
-        //System.out.println(Integer.parseInt("22147483647"));
-
-
-        //2147483647
-
-        String s  = "Tejeswar";
-        System.out.println(s.substring(2, 5));
-
-*/
-
-        //new SplitArrayIntoFibSequence().splitIntoFibonacci("123456579");
-
         {
             List<Integer> res = new SplitArrayIntoFibSequence().splitIntoFibonacci("123456579");
             if (res.size() > 0) {

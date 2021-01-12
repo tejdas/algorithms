@@ -3,13 +3,14 @@ package net.lc;
 import java.util.*;
 
 /**
+ * 752
  * https://leetcode.com/problems/open-the-lock/submissions/
  * BFS
  */
 public class OpenTheLock {
+    private final Set<String> deadendSet = new HashSet<>();
+    private final Map<String, List<String>> neighborsMap = new HashMap<>();
     public int openLock(String[] deadends, String target) {
-
-        Set<String> deadendSet = new HashSet<>();
         for (String s : deadends) deadendSet.add(s);
 
         if (deadendSet.contains("0000")) return -1;
@@ -31,7 +32,7 @@ public class OpenTheLock {
 
             int curD = distanceMap.get(curNode);
 
-            List<String> neighbors = buildNeighbors(curNode, deadendSet);
+            List<String> neighbors = buildNeighbors(curNode);
             for (String s : neighbors) {
                 if (distanceMap.containsKey(s)) {
                     int neighD = distanceMap.get(s);
@@ -50,7 +51,10 @@ public class OpenTheLock {
         return -1;
     }
 
-    private List<String> buildNeighbors(String curNode, Set<String> deadendSet) {
+    private List<String> buildNeighbors(String curNode) {
+        if (neighborsMap.containsKey(curNode)) {
+            return neighborsMap.get(curNode);
+        }
         List<String> neighbors = new ArrayList<>();
 
         char[] array = curNode.toCharArray();
@@ -95,6 +99,7 @@ public class OpenTheLock {
             array[i] = c;
 
         }
+        neighborsMap.put(curNode, neighbors);
         return neighbors;
     }
 

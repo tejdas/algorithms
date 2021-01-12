@@ -46,17 +46,20 @@ public class MeetingScheduler {
                 prev = intv;
             } else {
                 if (intv.begin >= prev.begin && intv.end <= prev.end) {
-                    if (intv.end - intv.begin >= duration) return Arrays.asList(intv.begin, intv.begin+duration);
+                    if (intv.end - intv.begin >= duration)
+                        return Arrays.asList(intv.begin, intv.begin + duration);
                 } else if (intv.begin > prev.end) {
                     prev = intv;
                 } else {
-                    if (prev.end - intv.begin >= duration) return Arrays.asList(intv.begin, intv.begin+duration);
+                    if (prev.end - intv.begin >= duration)
+                        return Arrays.asList(intv.begin, intv.begin + duration);
                     prev = intv;
                 }
             }
         }
         return Collections.emptyList();
     }
+
 
     public static void main(String[] args) {
         {

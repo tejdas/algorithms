@@ -6,6 +6,8 @@ import java.util.*;
  * 126
  * BFS
  * DFS
+ * First do BFS to find the shortest path.
+ * Then run all-path DFS along the shortest paths to find all paths.
  */
 public class WordLaadderII {
     private static Set<String> words = new HashSet<>();

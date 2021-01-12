@@ -1,8 +1,10 @@
 package net.lc;
 
 /**
+ * 785
  * https://leetcode.com/problems/is-graph-bipartite/
  * DFS
+ * Two-color
  * Graph
  */
 public class IsGraphBipartite {

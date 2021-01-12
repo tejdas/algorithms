@@ -2,6 +2,11 @@ package net.lc;
 
 import java.util.Arrays;
 
+/**
+ * 16
+ * Sorted array
+ * Two-pointer
+ */
 public class ThreeSumClosest {
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);

@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 670
+ * Greedy
+ * Array
+ */
 public class MaximumSwap {
     public int maximumSwap(int num) {
         if (num <= 10) return num;

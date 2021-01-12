@@ -1,6 +1,7 @@
 package net.lc;
 
 /**
+ * 256
  * https://leetcode.com/problems/paint-house/
  * Dynamic Programming
  */

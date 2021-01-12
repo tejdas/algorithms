@@ -3,6 +3,7 @@ package net.lc;
 import java.util.*;
 
 /**
+ * 1494
  * BFS
  * Shortest path
  * Back-tracking (combinatorial)
