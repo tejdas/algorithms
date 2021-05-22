@@ -10,6 +10,15 @@ import java.util.Arrays;
 public class MinimumInitialEnergyToFinishTasks {
     public int minimumEffort(int[][] tasks) {
 
+        /**
+         * task[0] = actual energy spent
+         * task[1] = minimum energy needed
+         * Energy remaining after task is done: task[1] - task[0]
+         *
+         * Pick up the tasks such that energy remaining is maximum,
+         * so that the remaining energy can be used for subsequent tasks,
+         * and we can minimize the overall initial energy.
+         */
         Arrays.sort(tasks, (o1, o2) -> {
             int odelta = o2[1] - o2[0];
             int delta = o1[1] - o1[0];
@@ -19,19 +28,28 @@ public class MinimumInitialEnergyToFinishTasks {
             return Integer.compare(odelta, delta);
         });
 
-        int minEffort = 0;
+        int minimumInitialEnergy = 0;
         int residual = 0;
         for (int[] task : tasks) {
 
             if (residual < task[1]) {
+                /**
+                 * Residual energy is not enough to do the task.
+                 * Find how much we are falling short by.
+                 * Add it to minimumInitialEnergy.
+                 * Recompute residual energy.
+                 */
                 int toAdd = task[1] - residual;
-                minEffort += toAdd;
+                minimumInitialEnergy += toAdd;
                 residual = residual + toAdd - task[0];
             } else {
+                /**
+                 * Residual energy is enough to do the task.
+                 */
                 residual -= task[0];
             }
         }
-        return minEffort;
+        return minimumInitialEnergy;
     }
 
     public static void main(String[] args) {

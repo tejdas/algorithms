@@ -4,6 +4,9 @@ package net.lc;
  * 135
  * Greedy
  * Got HINT
+ * Two pass
+ * Left to right
+ * Right to left
  */
 public class Candy {
     public int candy(int[] ratings) {

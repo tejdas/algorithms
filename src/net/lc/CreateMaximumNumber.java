@@ -64,6 +64,15 @@ public class CreateMaximumNumber {
         if (nums1[index1] > nums2[index2]) return nums1; else return nums2;
     }
 
+    /**
+     * create largest number of k digits from an array of integers.
+     * Use stack
+     * The numbers must be in the order in which they appear in the array.
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
     private static int[] creatLargestNumber(int[] nums, int k) {
         if (k == 0) return new int[] {};
         int[] result = new int[k];
@@ -103,8 +112,14 @@ public class CreateMaximumNumber {
             } else if (nums1[index1] < nums2[index2]) {
                 result[index++] = nums2[index2++];
             } else {
-                //System.out.println("coming here");
-
+                /**
+                 * while the current matching digits are the same, keep moving
+                 * both indices until (a) the digits are not the same or (b) one
+                 * of the indices reaches end of array.
+                 *
+                 * In case of (a), pick the next element from the array that has larger value.
+                 * In case of (b), pick the next element from array that we did not reach the end of.
+                 */
                 int idx1 = index1;
                 int idx2 = index2;
 

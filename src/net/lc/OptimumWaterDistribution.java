@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * https://leetcode.com/problems/optimize-water-distribution-in-a-village/submissions/
  * MST (minimum spanning tree)
+ * Prim's algorithm
  */
 public class OptimumWaterDistribution {
 
@@ -21,10 +22,6 @@ public class OptimumWaterDistribution {
 
         public int other(int n) {
             if (n == node1) return node2; else return node1;
-        }
-
-        public boolean isRoot() {
-            return node1 == 0 || node2 == 0;
         }
 
         @Override
@@ -48,20 +45,17 @@ public class OptimumWaterDistribution {
         int edgesAdded = 0;
         boolean[] visited = new boolean[n+1];
         Arrays.fill(visited, false);
+
+        visited[0] = true;
+
         while (edgesAdded < n) {
             Edge e = pq.remove();
             int unvisitedNode;
 
-            if (e.isRoot()) {
-                int node = e.other(0);
-                if (visited[node]) continue;
-                unvisitedNode = node;
+            if (visited[e.node1] && visited[e.node2]) {
+                continue;
             } else {
-                if (visited[e.node1] && visited[e.node2]) {
-                    continue;
-                } else {
-                    unvisitedNode = visited[e.node1]? e.node2 : e.node1;
-                }
+                unvisitedNode = visited[e.node1] ? e.node2 : e.node1;
             }
 
             visited[unvisitedNode] = true;
@@ -70,7 +64,10 @@ public class OptimumWaterDistribution {
 
             List<Edge> ll = (List<Edge>) adjMap[unvisitedNode];
             for (Edge ee : ll) {
-                pq.add(ee);
+                int other = ee.other(unvisitedNode);
+                if (!visited[other]) {
+                    pq.add(ee);
+                }
             }
         }
         return cost;

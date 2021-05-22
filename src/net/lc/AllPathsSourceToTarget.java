@@ -7,7 +7,7 @@ import java.util.*;
  * DFS
  * All-paths
  */
-public class AllPathsSourceToTarget
+public class AllPathsSourceToTarget {
     private final Map<Integer, Set<Integer>> map = new HashMap<>();
     private final Set<Integer> visited = new HashSet<>();
 

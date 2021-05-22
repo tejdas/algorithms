@@ -3,6 +3,7 @@ package net.lc;
 import java.util.PriorityQueue;
 
 /**
+ * 1094
  * https://leetcode.com/problems/car-pooling/submissions/
  * Greedy
  * Priority-queue
@@ -28,6 +29,20 @@ public class CarPooling {
         }
     }
 
+    /**
+     * Store the trips as two markers : startLocation and endLocation
+     * Sort all the markers by location.
+     * If the endLocation marker and startLocation marker coincide,
+     * then pick endMarker first, and then startMarker.
+     *
+     * When we hit startLocation marker, increment the passenger count.
+     * If the number of passengers exceed capacity, return false.
+     *
+     * When we hit endLocation marker, decrement the passenger count.
+     * @param trips
+     * @param capacity
+     * @return
+     */
     public boolean carPooling(int[][] trips, int capacity) {
         PriorityQueue<Loc> pq = new PriorityQueue<>();
         for (int[] trip : trips) {

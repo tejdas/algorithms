@@ -3,9 +3,14 @@ package net.lc;
 import java.util.PriorityQueue;
 
 /**
+ * 1167
  * https://leetcode.com/problems/minimum-cost-to-connect-sticks/submissions/
  * PriorityQueue
  * Greedy
+ *
+ * Always pick up the two smallest sticks, and combine those, and put it back to PQ.
+ * By always picking up the smallest two sticks greedily, we make sure to minimize
+ * the cost.
  */
 public class MinimumCostToConnectSticks {
     public int connectSticks(int[] sticks) {

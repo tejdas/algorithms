@@ -31,24 +31,22 @@ class WebCrawlerMT {
         int nThreads = 8;
         final CountDownLatch latch = new CountDownLatch(nThreads);
 
-        final Runnable worker = new Runnable() {
-            public void run() {
-                try {
-                    while (true) {
-                        final String url = queue.poll();
-                        if (url == null) {
-                            break;
-                        }
-                        result.add(url);
-                        for (String nextUrl : htmlParser.getUrls(url)) {
-                            if (seen.add(nextUrl) && host.equals(hostname(nextUrl))) {
-                                queue.offer(nextUrl);
-                            }
+        final Runnable worker = () -> {
+            try {
+                while (true) {
+                    final String url = queue.poll();
+                    if (url == null) {
+                        break;
+                    }
+                    result.add(url);
+                    for (String nextUrl : htmlParser.getUrls(url)) {
+                        if (seen.add(nextUrl) && host.equals(hostname(nextUrl))) {
+                            queue.offer(nextUrl);
                         }
                     }
-                } finally {
-                    latch.countDown();
                 }
+            } finally {
+                latch.countDown();
             }
         };
 
