@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.dp;
 
 import java.util.Arrays;
 

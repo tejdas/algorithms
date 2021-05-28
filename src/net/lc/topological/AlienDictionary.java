@@ -1,7 +1,11 @@
-package net.lc;
+package net.lc.topological;
 
 import java.util.*;
 
+/**
+ * 269
+ * Topological sort
+ */
 public class AlienDictionary {
     static class CycleDetectedException extends RuntimeException {
 

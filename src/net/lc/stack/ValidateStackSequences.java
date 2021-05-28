@@ -1,13 +1,16 @@
-package net.lc;
+package net.lc.stack;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 /**
  * https://leetcode.com/problems/validate-stack-sequences/submissions/
  * Stack solution
+ * 946
  */
 public class ValidateStackSequences {
-    public boolean validateStackSequences(int[] pushed, int[] popped) {
+    public boolean validateStackSequences2(int[] pushed, int[] popped) {
 
         Stack<Integer> stack = new Stack<>();
 
@@ -40,6 +43,37 @@ public class ValidateStackSequences {
 
         if (stack.isEmpty() && popIndex == popped.length) return true;
         return false;
+    }
+
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+
+        Stack<Integer> stack = new Stack<>();
+
+        int pushIndex = 0;
+        int popIndex = 0;
+
+        Set<Integer> seen = new HashSet<>();
+
+        while (popIndex < popped.length) {
+            int popVal = popped[popIndex];
+
+            while (!seen.contains(popVal) && pushIndex < pushed.length) {
+                int pushval = pushed[pushIndex++];
+                stack.push(pushval);
+                seen.add(pushval);
+            }
+
+            while (seen.contains(popVal) && !stack.isEmpty()) {
+                if (stack.peek() != popVal) return false;
+                popIndex++;
+                stack.pop();
+                if (popIndex == popped.length) break;
+                popVal = popped[popIndex];
+
+            }
+        }
+
+        return (stack.isEmpty() && popIndex == popped.length);
     }
 
     public static void main(String[] args) {

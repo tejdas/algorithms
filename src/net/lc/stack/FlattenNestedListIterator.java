@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.stack;
 
 import java.util.Iterator;
 import java.util.List;
@@ -32,16 +32,16 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
         }
     }
 
-    private Stack<ListInfo> stack = new Stack<>();
+    private Stack<FlattenNestedListIterator.ListInfo> stack = new Stack<>();
 
     public FlattenNestedListIterator(List<NestedInteger> nestedList) {
-        stack.push(new ListInfo(nestedList));
+        stack.push(new FlattenNestedListIterator.ListInfo(nestedList));
     }
 
     @Override
     public boolean hasNext() {
         while (!stack.isEmpty()) {
-            final ListInfo info = stack.peek();
+            final FlattenNestedListIterator.ListInfo info = stack.peek();
 
             final List<NestedInteger> list = info.ni;
             if (info.pos == list.size()) {
@@ -54,7 +54,7 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
                 return true;
             } else {
                 info.pos++;
-                stack.push(new ListInfo(obj.getList()));
+                stack.push(new FlattenNestedListIterator.ListInfo(obj.getList()));
             }
 
         }
@@ -64,7 +64,7 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
     @Override
     public Integer next() {
 
-        final ListInfo info = stack.peek();
+        final FlattenNestedListIterator.ListInfo info = stack.peek();
         final List<NestedInteger> list = info.ni;
         final NestedInteger obj = list.get(info.pos++);
         if (obj.isInteger()) {

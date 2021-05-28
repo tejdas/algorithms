@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.stack;
 
 import java.util.ArrayList;
 import java.util.List;

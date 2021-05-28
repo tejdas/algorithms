@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.stack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,12 +9,22 @@ import java.util.Stack;
  * Stack
  * Map
  */
-public class FreqStack {
+public class MaximumFreqStack {
 
+    /**
+     * keep track of the highest frequency.
+     */
     int curMaxFreq = 0;
+    /**
+     * Element -> Frequency map
+     */
     Map<Integer, Integer> freqMap = new HashMap<>();
+    /**
+     * Key is frequency
+     * Frequency -> stack of all elements of that frequency.
+     */
     private final Map<Integer, Stack<Integer>> freqStackMap = new HashMap<>();
-    public FreqStack() {
+    public MaximumFreqStack() {
     }
 
     public void push(int x) {
@@ -26,6 +36,10 @@ public class FreqStack {
 
             curMaxFreq = Math.max(curMaxFreq, xFreq);
         } else {
+            /**
+             * increment x's frequency, and push it to stack of higher frequency.
+             * Do NOT remove x from lower frequency stack.
+             */
             freqMap.put(x, 1 + freqMap.get(x));
             int xFreq = freqMap.get(x);
             Stack<Integer> stack = freqStackMap.computeIfAbsent(xFreq, k -> new Stack<>());

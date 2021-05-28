@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.stack;
 
 import java.util.Stack;
 
@@ -26,21 +26,34 @@ public class NextGreaterElement {
         }
         Stack<SPair> stack = new Stack<>();
 
+        /**
+         * Traverse the circular array twice
+         */
         int index = 0;
         for (int idx = 0; idx < nums.length*2-1; idx++) {
             int val = nums[index];
 
             if (!stack.isEmpty()) {
                 if (index == stack.peek().index) {
+                    /**
+                     * we have traversed one full circle, and back to same index.
+                     */
                     stack.pop();
                     resultList[index] = -1;
                 } else if (val > stack.peek().val) {
                     while (!stack.isEmpty() && val > stack.peek().val) {
+                        /**
+                         * Mark popped elements' largest next index to be current index.
+                         */
                         SPair spair = stack.pop();
                         resultList[spair.index] = val;
                     }
                 }
             }
+            /**
+             * Store the current index in stack for later processing.
+             * Move the index by 1 modulo array-len.
+             */
             stack.push(new SPair(index, val));
             index = (index + 1) % nums.length;
         }

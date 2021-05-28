@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.graph;
 
 import java.util.ArrayList;
 import java.util.List;

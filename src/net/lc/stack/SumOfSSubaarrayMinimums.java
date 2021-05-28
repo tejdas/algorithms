@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.stack;
 
 import java.util.Arrays;
 import java.util.Stack;
@@ -13,8 +13,8 @@ public class SumOfSSubaarrayMinimums {
     public int sumSubarrayMins(int[] array) {
         if (array == null || array.length == 0) return 0;
 
-        int[] pleArray = getPLE(array);
-        int[] nleArray = getNLE(array);
+        int[] pleArray = getPreviousSmallerElement(array);
+        int[] nleArray = getNextSmallerElement(array);
 
         long res = 0;
 
@@ -23,17 +23,28 @@ public class SumOfSSubaarrayMinimums {
             int ple = pleArray[i];
             int nle = nleArray[i];
 
-            int offset = Math.abs(nle-i) * Math.abs(i-ple);
-            //System.out.println("val: " + val + " offset: " + offset);
+            /**
+             * In all the subarray ranges [m,n], where m >= ple and n <= nle,
+             * current element is the minimum.
+             * Therefore, calculate number of subarrays
+             */
+            int numSubarrays = Math.abs(nle-i) * Math.abs(i-ple);
 
-            res += val * offset;
+            res += val * numSubarrays;
         }
 
         long retval = res % 1000000007;
         return (int) retval;
     }
 
-    private int[] getNLE(int[] array) {
+    /**
+     * Returns an output array, such that:
+     * output[i] = index of the next smaller value;
+     * output[i] = j where j > i and array[j] <= array[i]
+     * @param array
+     * @return
+     */
+    private int[] getNextSmallerElement(int[] array) {
         int[] res = new int[array.length];
         Arrays.fill(res, array.length);
 
@@ -52,7 +63,7 @@ public class SumOfSSubaarrayMinimums {
         return res;
     }
 
-    private int[] getPLE(int[] array) {
+    private int[] getPreviousSmallerElement(int[] array) {
         int[] res = new int[array.length];
         Arrays.fill(res, -1);
 
