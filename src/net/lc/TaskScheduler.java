@@ -65,12 +65,13 @@ public class TaskScheduler {
             timeTaken++;
 
             if (!pq.isEmpty()) {
+                /**
+                 * Give priority to tasks that have highest remaining frequency.
+                 */
                 Task task = pq.remove();
 
-                if (task.remainingCount > 0) {
-                    if (task.remainingCount > 1) {
-                        parkedTaskList.add(new ParkedTask(task.taskId, task.remainingCount - 1, timeTaken + n));
-                    }
+                if (task.remainingCount > 1) {
+                    parkedTaskList.add(new ParkedTask(task.taskId, task.remainingCount - 1, timeTaken + n));
                 }
             }
 

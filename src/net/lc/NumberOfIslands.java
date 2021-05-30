@@ -1,5 +1,9 @@
 package net.lc;
 
+/**
+ * 200
+ * DFS
+ */
 public class NumberOfIslands {
     private static final int[][] neighs = {{-1, 0}, {1,0}, {0,-1}, {0,1}};
     private boolean[][] visited = null;
