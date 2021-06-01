@@ -1,10 +1,11 @@
-package net.lc;
+package net.lc.bfs;
 
 import java.util.*;
 
 /**
  * https://leetcode.com/problems/shortest-path-with-alternating-colors/submissions/
  * BFS
+ * 1129
  */
 public class ShortestPathAlternateColors {
     public int[] shortestAlternatingPaths(int n, int[][] red_edges, int[][] blue_edges) {

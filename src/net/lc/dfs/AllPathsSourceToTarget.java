@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.dfs;
 
 import java.util.*;
 
@@ -37,17 +37,16 @@ public class AllPathsSourceToTarget {
     private void traverseDFS(int curNode, int destNode, Stack<Integer> path) {
         if (visited.contains(curNode)) return;
 
-        visited.add(curNode);
-        path.push(curNode);
         if (curNode == destNode) {
             List<Integer> pathList = new ArrayList<>();
             for (int val : path) pathList.add(val);
+            pathList.add(curNode);
             result.add(pathList);
-
-            path.pop();
-            visited.remove(curNode);
             return;
         }
+
+        visited.add(curNode);
+        path.push(curNode);
 
         for (int adjNode : map.get(curNode)) {
             if (!visited.contains(adjNode)) {

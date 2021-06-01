@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.binarytree;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -91,6 +91,12 @@ public class DistributeCoinsBT {
         return new Pair(treeNodeInfo, numNodes, numCoins);
     }
 
+    /**
+     * Post-order
+     * @param treeNodeInfo
+     * @param extraCoins
+     * @return
+     */
     private int distribute(TreeNodeInfo treeNodeInfo, int extraCoins) {
         if (extraCoins > 0) {
             //System.out.println("From parent, TreeNode: " + treeNodeInfo.treeNode.val + " got extra coins: " + extraCoins);

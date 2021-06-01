@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.bfs;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -6,6 +6,13 @@ import java.util.Queue;
 /**
  * https://leetcode.com/problems/surrounded-regions/
  * BFS
+ *
+ * Logic
+ * Put all border cells (with 0) as start nodes for BFS (queue).
+ * BFS traverse and try to reach 0s, and flip all visited cell to P.
+ *
+ * The 0 cells that are not reachable from the border cells are the cells
+ * that are surrounded by X's.
  */
 public class SurroundedRegions {
     private static final int[][] neigh = {{-1,0}, {1,0},{0,-1},{0,1}};

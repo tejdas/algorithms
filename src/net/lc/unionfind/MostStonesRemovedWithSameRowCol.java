@@ -1,9 +1,11 @@
-package net.lc;
+package net.lc.unionfind;
 
 import java.util.*;
 
 /**
  * https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/
+ * 947
+ * Union-Find
  */
 public class MostStonesRemovedWithSameRowCol {
     private int[] parentArray;

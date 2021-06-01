@@ -1,10 +1,11 @@
-package net.lc;
+package net.lc.dp;
 
 import java.util.*;
 
 /**
  * 1235
- *
+ * Dynamic Programming
+ * Greedy
  */
 public class MaxProfitInJobScheduling {
     static class Job implements Comparable<Job> {

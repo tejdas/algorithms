@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -38,8 +38,6 @@ public class BinaryTreeCamera {
         dfs(root, null);
         return cameraLocation.size();
     }
-
-
 
     private void dfs(TreeNode cur, TreeNode par) {
         if (cur.left == null & cur.right == null) {

@@ -1,39 +1,61 @@
-package net.lc;
-
-import net.lc.BinaryTreeBuilder.TreeNode;
+package net.lc.binarytree;
 
 import java.util.*;
 
 /**
  * https://leetcode.com/problems/delete-nodes-and-return-forest/submissions/
  * Binary Tree
+ * 1110
  * BFS
  */
 public class DeleteNodesAndReturnForest {
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     static class TreeInfo {
         TreeNode cur;
         TreeNode par;
         boolean isLeft;
-        int label;
 
-        public TreeInfo(TreeNode cur, TreeNode par, boolean isLeft, int label) {
+        public TreeInfo(TreeNode cur, TreeNode par, boolean isLeft) {
             this.cur = cur;
             this.par = par;
             this.isLeft = isLeft;
-            this.label = label;
         }
     }
 
     private final Stack<TreeInfo> stack = new Stack<>();
+
     public List<TreeNode> delNodes(TreeNode root, int[] td) {
         Set<Integer> toDelete = new HashSet<>();
-        for (int val : td) toDelete.add(val);
+        for (int val : td)
+            toDelete.add(val);
 
-        TreeInfo rootInfo = new TreeInfo(root, null, true, 0);
+        TreeInfo rootInfo = new TreeInfo(root, null, true);
 
         Queue<TreeInfo> queue = new LinkedList<>();
         queue.add(rootInfo);
 
+        /**
+         * Traverse the tree level-order, and collect parent, and isLeft/Right info.
+         * Push the to-be-deleted nodes in stack, so that we will consider bottom-up fashion.
+         */
         while (!queue.isEmpty()) {
             TreeInfo curNode = queue.remove();
             if (toDelete.contains(curNode.cur.val)) {
@@ -41,22 +63,20 @@ public class DeleteNodesAndReturnForest {
             }
 
             if (curNode.cur.left != null) {
-                queue.add(new TreeInfo(curNode.cur.left, curNode.cur, true, curNode.label+1));
+                queue.add(new TreeInfo(curNode.cur.left, curNode.cur, true));
             }
 
             if (curNode.cur.right != null) {
-                queue.add(new TreeInfo(curNode.cur.right, curNode.cur, false, curNode.label+1));
+                queue.add(new TreeInfo(curNode.cur.right, curNode.cur, false));
             }
         }
-
-        //Collections.sort(list);
 
         List<TreeNode> result = new ArrayList<>();
         boolean rootDeleted = false;
 
         while (!stack.isEmpty()) {
             TreeInfo treeInfo = stack.pop();
-            //System.out.println("processing: " + treeInfo.cur.val + "    val: " + treeInfo.val);
+
             if (treeInfo.cur.left != null) {
                 result.add(treeInfo.cur.left);
             }
@@ -104,15 +124,16 @@ public class DeleteNodesAndReturnForest {
             System.out.println("------------------------------");
             */
         }
-
+/*
         {
             TreeNode rootNode = BinaryTreeBuilder.buildTree("1,2,3,null,null,null,4");
-            List<TreeNode> result = new DeleteNodesAndReturnForest().delNodes(rootNode, new int[]{2,1});
+            List<TreeNode> result = new DeleteNodesAndReturnForest().delNodes(rootNode, new int[] { 2, 1 });
 
             for (TreeNode r : result) {
                 BinaryTreeBuilder.preorder(r);
             }
             System.out.println("------------------------------");
         }
+        */
     }
 }

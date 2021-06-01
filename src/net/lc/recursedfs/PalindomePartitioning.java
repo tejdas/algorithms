@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.recursedfs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,15 +40,15 @@ public class PalindomePartitioning {
         return result;
     }
 
-    private void dfs(int curIndex, Stack<String> stack) {
-        if (curIndex == array.length) {
+    private void dfs(int startIndex, Stack<String> stack) {
+        if (startIndex == array.length) {
             List<String> l = new ArrayList<>();
             for (String val : stack) l.add(val);
             result.add(l);
         }
-        for (int index = curIndex; index < array.length; index++) {
-            if (isPalindrome(curIndex, index)) {
-                stack.push(s.substring(curIndex, index+1));
+        for (int index = startIndex; index < array.length; index++) {
+            if (isPalindrome(startIndex, index)) {
+                stack.push(s.substring(startIndex, index+1));
                 dfs(index+1, stack);
                 stack.pop();
             }

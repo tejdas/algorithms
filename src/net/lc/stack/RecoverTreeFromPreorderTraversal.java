@@ -1,9 +1,12 @@
-package net.lc;
+package net.lc.stack;
 
 import java.util.Stack;
 
 /**
  * https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/submissions/
+ * 1028
+ * Stack
+ * Preorder
  */
 public class RecoverTreeFromPreorderTraversal {
     static class TreeNode {

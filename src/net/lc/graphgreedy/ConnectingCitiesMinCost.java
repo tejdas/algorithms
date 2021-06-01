@@ -1,10 +1,11 @@
-package net.lc;
+package net.lc.graphgreedy;
 
 import java.util.*;
 
 /**
  * https://leetcode.com/problems/connecting-cities-with-minimum-cost/submissions/
  * minimum spanning tree
+ * Prim's MST
  */
 public class ConnectingCitiesMinCost {
 
@@ -32,8 +33,20 @@ public class ConnectingCitiesMinCost {
     private List[] edgeMap;
 
     private boolean[] visited;
-    private int visitedNodes = 0;
 
+    /**
+     * Prim's MST
+     * Choose a startNode. Mark visited. Add all edges to PQ.
+     * Select the highest weighted edge in PQ.
+     * If both vertices have been visited, ignore.
+     * Otherwise, add the edge to MST.
+     * Choose the unvisited node, mark visited, and repeat.
+     * When number of chosen edges is N-1, we are done.
+     *
+     * @param N
+     * @param connections
+     * @return
+     */
     public int minimumCost(int N, int[][] connections) {
 
         visited = new boolean[N+1];
@@ -58,11 +71,6 @@ public class ConnectingCitiesMinCost {
         if (seenV.size() < N) return -1;
 
         int startNode = 1;
-        /*
-        dfs(startNode);
-
-        if (visitedNodes < N) return -1;
-*/
         int totalCost = 0;
 
         Arrays.fill(visited, false);
@@ -96,23 +104,6 @@ public class ConnectingCitiesMinCost {
 
         if (edgesAdded < N-1) return -1;
         return totalCost;
-    }
-
-    private void dfs(int v) {
-        if (visited[v]) return;
-
-        visited[v] = true;
-        visitedNodes++;
-
-        List<Edge> edges = edgeMap[v];
-
-        for (Edge edge : edges) {
-
-            int adj = edge.other(v);
-            if (!visited[adj]) {
-                dfs(adj);
-            }
-        }
     }
 
     public static void main(String[] args) {

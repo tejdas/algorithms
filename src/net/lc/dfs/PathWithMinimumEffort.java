@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.dfs;
 
 import java.util.Arrays;
 
@@ -6,6 +6,7 @@ import java.util.Arrays;
  * https://leetcode.com/problems/path-with-minimum-effort/submissions/
  * DFS
  * Binary-Search on the possible values
+ * 1631
  */
 public class PathWithMinimumEffort {
     int[][] array;
@@ -28,10 +29,12 @@ public class PathWithMinimumEffort {
         visited = new boolean[rows][cols];
         findMinMax(new int[]{0,0});
 
+        /**
+         * Binary search on the min reach value
+         */
         int left = minDiff;
         int right = maxDiff;
 
-        //if (checkReach(left)) return left;
         int mid = 0;
 
         while (left <= right) {
@@ -53,11 +56,13 @@ public class PathWithMinimumEffort {
             Arrays.fill(ar, false);
     }
 
+    /**
+     * DFS traverse the entire matrix, and find min-diff between two adj cells max-diff between two adjacent cells.
+     * @param curNode
+     */
     public void findMinMax(int[] curNode) {
         int row = curNode[0];
         int col = curNode[1];
-
-        if (visited[row][col]) return;
 
         visited[row][col] = true;
 
@@ -82,13 +87,17 @@ public class PathWithMinimumEffort {
         return canReach(new int[]{0,0}, limit);
     }
 
+    /**
+     * DFS starting from {0,0} to see if we can reach last cell, while staying at/below limit.
+     * @param curNode
+     * @param limit
+     * @return
+     */
     private boolean canReach(int[] curNode, int limit) {
         int row = curNode[0];
         int col = curNode[1];
 
         if (row == rows-1 && col == cols-1) return true;
-        if (visited[row][col]) return false;
-
         visited[row][col] = true;
 
         for (int[] adj : dir) {

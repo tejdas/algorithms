@@ -1,12 +1,30 @@
-package net.lc;
-import net.lc.BinaryTreeBuilder.TreeNode;
+package net.lc.binarytree;
 
 /**
  * https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/submissions/
  * Binary Tree
  * DFS
+ * 1026
  */
 public class MaxDifferenceNodeAndAncestor {
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
 
     private int maxDiff = 0;
     public int maxAncestorDiff(TreeNode root) {
@@ -27,7 +45,7 @@ public class MaxDifferenceNodeAndAncestor {
     }
 
     public static void main(String[] args) {
-        TreeNode rootNode = BinaryTreeBuilder.buildTree("8,3,10,1,6,null,14,null,null,4,7,13");
-        System.out.println(new MaxDifferenceNodeAndAncestor().maxAncestorDiff(rootNode));
+        //TreeNode rootNode = BinaryTreeBuilder.buildTree("8,3,10,1,6,null,14,null,null,4,7,13");
+        //System.out.println(new MaxDifferenceNodeAndAncestor().maxAncestorDiff(rootNode));
     }
 }
