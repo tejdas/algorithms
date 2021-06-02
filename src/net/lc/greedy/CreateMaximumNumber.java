@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.Arrays;
 import java.util.Stack;

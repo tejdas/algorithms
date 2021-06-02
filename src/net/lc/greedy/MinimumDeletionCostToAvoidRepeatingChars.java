@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 /**
  * 1578
@@ -16,10 +16,13 @@ public class MinimumDeletionCostToAvoidRepeatingChars {
             if (array[i] == array[i-1]) {
                 /**
                  * Repeating sequence continues.
+                 * In a repeating sequence: xyyyyyyz, we will remove all y's except one.
+                 * The one we need to keep is the one that has max deletion cost.
+                 * So, keep track of curmax.
                  *
-                 * assume that all consecutive identical numbers will be removed
+                 * Assume that all consecutive identical numbers will be removed
                  * and keep adding to cursum
-                 * Also, keep track of the curmqx that need to be removed
+                 * Also, keep track of the curmqx that does not need to be removed
                  * once we encounter another number.
                  */
                 cursum += cost[i];
@@ -27,7 +30,7 @@ public class MinimumDeletionCostToAvoidRepeatingChars {
             } else {
                 /**
                  * we encountered another number. Now remove the curmax from cursum
-                 * and then add to removecost.
+                 * and then add cursum to removecost.
                  * Also, reset cursum and curmax, as this could be the start of another
                  * repeating sequence.
                  */

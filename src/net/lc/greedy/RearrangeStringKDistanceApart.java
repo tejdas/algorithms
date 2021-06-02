@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.*;
 
@@ -6,6 +6,7 @@ import java.util.*;
  * https://leetcode.com/problems/rearrange-string-k-distance-apart/submissions/
  * Greedy
  * PriorityQueue
+ * 358
  */
 public class RearrangeStringKDistanceApart {
     static class Pair implements Comparable<Pair> {
@@ -56,18 +57,7 @@ public class RearrangeStringKDistanceApart {
 
         while (!pq.isEmpty()) {
             Pair cur = pq.remove();
-            if (cur.pos == -1) {
-                cur.pos = pos;
-                sb.append(cur.c);
-                cur.count--;
-                if (cur.count > 0) {
-                    if (k > 0)
-                        posMap.put(pos, cur);
-                    else
-                        pq.add(cur);
-                }
-                pos++;
-            } else if (pos - cur.pos >= k) {
+            if (cur.pos == -1 || (pos - cur.pos >= k)) {
                 cur.pos = pos;
                 sb.append(cur.c);
                 cur.count--;

@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -122,6 +122,12 @@ public class TwoCityScheduling {
     /**
      * Adjust cost in such a way that the rise in cost (while selecting the other city) is minimized.
      * In other words, select those indices where the other city's higher cost difference is minimized.
+     * Example, consider we need to pick CityB, instead of CityA.
+     *
+     * Let's say we have two persons with choices:
+     * [20, 100]  [120, 160]
+     * We will pick 160 (where the cost-increase would be 40), instead of 100 (where the cost-increase would be 80).
+     *
      * @param costs
      * @param toChange
      * @param totalCost

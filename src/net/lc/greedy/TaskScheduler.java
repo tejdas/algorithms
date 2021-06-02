@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.*;
 
@@ -70,11 +70,19 @@ public class TaskScheduler {
                  */
                 Task task = pq.remove();
 
+                /**
+                 * Since the task cannot be immediately executed again, put in parkedTaskList
+                 */
                 if (task.remainingCount > 1) {
                     parkedTaskList.add(new ParkedTask(task.taskId, task.remainingCount - 1, timeTaken + n));
                 }
             }
 
+            /**
+             * Tasks are parked in the queue in the order in which they were executed. So, check to see if the head of the queue
+             * is ready to execute again (its future execute time is already up). If so, remove from parked queue, and put it back
+             * in PQ.
+             */
             while (!parkedTaskList.isEmpty()) {
                 if (parkedTaskList.peek().futureExecTime <= timeTaken) {
                     ParkedTask pt = parkedTaskList.remove();

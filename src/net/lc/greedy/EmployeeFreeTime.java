@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ public class EmployeeFreeTime {
     static class Interval {
         int start;
         int end;
-        public Interval() {}
         public Interval(int s, int e) {
             start = s;
             end = e;
