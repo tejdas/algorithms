@@ -69,11 +69,11 @@ public class MinDeletionsToMakeCharFrequenciesUnique {
 
     public static void main(String[] args) {
 
-        System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("abc"));
-        System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("aab"));
-        System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("aaabbbcc"));
+        //System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("abc"));
+        //System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("aab"));
+        //System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("aaabbbcc"));
         System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("ceabaacb"));
 
-        System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("abcabc"));
+        //System.out.println(new MinDeletionsToMakeCharFrequenciesUnique().minDeletions("abcabc"));
     }
 }

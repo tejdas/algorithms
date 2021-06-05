@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.slidingwindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +12,10 @@ public class MinimumWindowSubstring {
     public String minWindow(String s, String t) {
         char[] array = t.toCharArray();
         char[] sarray = s.toCharArray();
+        /**
+         * Store the frequency of each char in t
+         * char -> frequency
+         */
         Map<Character, Integer> tmap = new HashMap<>();
         for (char c : array) {
             if (tmap.containsKey(c)) {
@@ -27,6 +31,9 @@ public class MinimumWindowSubstring {
         int curMin = -1;
         int curMax = -1;
 
+        /**
+         * Store the chars seen so far in s, that belong to t.
+         */
         Map<Character, Integer> map = new HashMap<>();
         int missingCount = t.length();
 
@@ -52,6 +59,9 @@ public class MinimumWindowSubstring {
                 }
 
                 if (missingCount == 0) {
+                    /**
+                     * We found our first window, containing all chars from t.
+                     */
                     curMin = 0;
                     curMax = i;
                     minPos = 0;
@@ -71,7 +81,9 @@ public class MinimumWindowSubstring {
             if (missingCount >0) continue;
 
             /**
-             * Now, try to shrink the left-window, by going past extra letters.
+             * Now, try to shrink the left-window, by going past extra letters in map.
+             * Essentially, for each letter, check to see if the current window (map)
+             * contains more letters than is there in t.
              */
             int j;
             for (j = curMin; j < curMax; j++) {
@@ -90,6 +102,9 @@ public class MinimumWindowSubstring {
             }
 
             if (j > curMin) {
+                /**
+                 * we were able to shrink from left. So, recompute min window.
+                 */
                 curMin = j;
 
                 if (curMax-curMin < maxPos-minPos) {

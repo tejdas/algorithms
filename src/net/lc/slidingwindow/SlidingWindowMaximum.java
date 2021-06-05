@@ -1,7 +1,11 @@
-package net.lc;
+package net.lc.slidingwindow;
 
 /**
  * https://leetcode.com/problems/sliding-window-maximum/submissions/
+ * 239
+ * Sliding Window
+ * Some of the cases are TLE
+ * Use a PriorityQueue instead
  */
 public class SlidingWindowMaximum {
     public int[] maxSlidingWindow(int[] nums, int k) {
@@ -25,11 +29,7 @@ public class SlidingWindowMaximum {
         for (int i = k; i < array.length; i++) {
             int evictedIndex = i-k;
             if (evictedIndex == maxIndex) {
-                maxIndex = getMaxIndex(array, evictedIndex+1, k-1);
-
-                if (array[i] >= array[maxIndex]) {
-                    maxIndex = i;
-                }
+                maxIndex = getMaxIndex(array, evictedIndex+1, k);
             } else {
                 if (array[i] >= array[maxIndex]) {
                     maxIndex = i;
@@ -41,13 +41,13 @@ public class SlidingWindowMaximum {
         return result;
     }
 
-    private int getMaxIndex(int[] array, int startPos, int count) {
-        if (count == 0) {
+    private int getMaxIndex(int[] array, int startPos, int windowSize) {
+        if (windowSize == 0) {
             return startPos;
         }
         int maxNumber = Integer.MIN_VALUE;
         int maxIndex = -1;
-        for (int i = startPos; i < (startPos+count); i++) {
+        for (int i = startPos; i < (startPos+windowSize); i++) {
             if (array[i] > maxNumber) {
                 maxNumber = array[i];
                 maxIndex = i;

@@ -1,8 +1,9 @@
-package net.lc;
+package net.lc.slidingwindow;
 
 import java.util.Arrays;
 
 /**
+ * Sliding Windows
  * 3
  */
 public class LongestSubstringWithoutRepeatingChars {
@@ -25,6 +26,13 @@ public class LongestSubstringWithoutRepeatingChars {
         for (int pos = 0; pos < array.length; pos++) {
             char c = array[pos];
             if (posArray[c] != -1 && posArray[c] >= startPos) {
+                /**
+                 * we have seen the char before, and are seeing now again. So, reset startPos to
+                 * last occurrence of the char + 1 (to skip the earlier occurrence).
+                 * E.g. let's say we are considering t
+                 * We saw t at pos 12 and again now (pos 18)
+                 * Reset startPos to 13.
+                 */
                 maxLength = Math.max(maxLength, curLength);
                 startPos = posArray[c] + 1;
                 posArray[c] = pos;
