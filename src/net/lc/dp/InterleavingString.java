@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.dp;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -59,6 +59,10 @@ public class InterleavingString {
             return s1.equalsIgnoreCase(s3);
         }
 
+        /**
+         * Map of:
+         * s3 Index  -> set of pairs of (s1 index, s2 index) that concatenate to make upto s3 index.
+         */
         Map<Integer, Set<SPair>> result = new HashMap<>();
 
         for (int i = 0; i < s3Array.length; i++) {
@@ -75,6 +79,10 @@ public class InterleavingString {
             } else {
                 Set<SPair> prevset = result.get(i-1);
 
+                /**
+                 * For each pair in the result set for i-1, check to see if the next char of s3 matches with
+                 * next char of s1 or next char of s2.
+                 */
                 for (SPair p : prevset) {
                     int p1 = p.p1;
                     int p2 = p.p2;

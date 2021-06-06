@@ -44,18 +44,12 @@ public class WordLaadderII {
      * @param to
      */
     private void bfs(final String from, final String to) {
-
-        final Set<String> visited = new HashSet<>();
-
         distanceMap.put(from, 0);
         final Queue<String> queue = new LinkedList<>();
         queue.add(from);
 
         while (!queue.isEmpty()) {
             final String curNode = queue.remove();
-
-            if (visited.contains(curNode)) continue;
-            visited.add(curNode);
             adjMap.put(curNode, new HashSet<>());
 
             final char[] array = curNode.toCharArray();
@@ -81,9 +75,11 @@ public class WordLaadderII {
                                  */
                                 if (distanceMap.get(word) > 1 + distanceMap.get(curNode)) {
                                     distanceMap.put(word, 1 + distanceMap.get(curNode));
+                                    queue.add(word);
                                 }
                             } else {
                                 distanceMap.put(word, 1 + distanceMap.get(curNode));
+                                queue.add(word);
                             }
 
                             if (word.equalsIgnoreCase(to)) {
@@ -91,10 +87,6 @@ public class WordLaadderII {
                                  * DO not stop BFS. Find all paths.
                                  */
                                 continue;
-                            }
-
-                            if (!visited.contains(word)) {
-                                queue.add(word);
                             }
                         }
                     }
@@ -129,6 +121,9 @@ public class WordLaadderII {
             for (String adj : adjset) {
                 /**
                  * Follow the shortest path (computed during BFS)
+                 * In other words, if the adj node distance is NOT  1 + cur node distance,
+                 * it means it is not in the shortest path.
+                 * Therefore, do not consider it.
                  */
                 if (distanceMap.get(adj) != null && distanceMap.get(adj) == curD+1) {
                     if (!dfsVisited.contains(adj)) {

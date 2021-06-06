@@ -3,7 +3,7 @@ package net.lc.slidingwindow;
 import java.util.Arrays;
 
 /**
- * Sliding Windows
+ * Sliding Window
  * 3
  */
 public class LongestSubstringWithoutRepeatingChars {

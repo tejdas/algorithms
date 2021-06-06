@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.trie;
 
 import java.util.*;
 

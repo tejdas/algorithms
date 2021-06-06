@@ -63,6 +63,11 @@ public class SatisfiabilityOfEqualityEquations {
         return true;
     }
 
+    /**
+     * Path compression
+     * @param c
+     * @return
+     */
     private int findParent(int c) {
         int parent = parentMap[c];
         if (parent != c) {

@@ -1,5 +1,8 @@
 package net.lc.slidingwindow;
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
 /**
  * https://leetcode.com/problems/sliding-window-maximum/submissions/
  * 239
@@ -17,7 +20,47 @@ public class SlidingWindowMaximum {
         return calcMaxNumber(nums, k);
     }
 
+    static class Entry implements Comparable<Entry> {
+        int index;
+        int val;
+
+        public Entry(int index, int val) {
+            this.index = index;
+            this.val = val;
+        }
+
+        @Override
+        public int compareTo(Entry o) {
+            if (o.val != this.val) return Integer.compare(o.val, this.val);
+            return Integer.compare(this.index, o.index);
+        }
+    }
+
     private int[] calcMaxNumber(int[] array, int k) {
+        int[] result = new int[array.length-k+1];
+
+        PriorityQueue<Entry> pq = new PriorityQueue<>();
+        for (int i = 0; i < k; i++) {
+            pq.add(new Entry(i, array[i]));
+        }
+
+        int index = 0;
+        result[index++] = pq.peek().val;
+
+        for (int i = k; i < array.length; i++) {
+            while (!pq.isEmpty() && pq.peek().index <= i-k) {
+                pq.remove();
+            }
+
+            pq.add(new Entry(i, array[i]));
+
+            // ith index being considered
+            result[index++] = pq.peek().val;
+        }
+        return result;
+    }
+
+    private int[] calcMaxNumber2(int[] array, int k) {
         int[] result = new int[array.length-k+1];
         int j = 0;
 
@@ -54,5 +97,27 @@ public class SlidingWindowMaximum {
             }
         }
         return maxIndex;
+    }
+
+    public static void main(String[] args) {
+        {
+            int[] nums = new int[] { 1, 3, -1, -3, 5, 3, 6, 7 };
+            System.out.println(Arrays.toString(new SlidingWindowMaximum().maxSlidingWindow(nums, 3)));
+        }
+
+        {
+            int[] nums = new int[] { 1 };
+            System.out.println(Arrays.toString(new SlidingWindowMaximum().maxSlidingWindow(nums, 1)));
+        }
+
+        {
+            int[] nums = new int[] { 1,-1};
+            System.out.println(Arrays.toString(new SlidingWindowMaximum().maxSlidingWindow(nums, 1)));
+        }
+
+        {
+            int[] nums = new int[] { 9,11 };
+            System.out.println(Arrays.toString(new SlidingWindowMaximum().maxSlidingWindow(nums, 2)));
+        }
     }
 }

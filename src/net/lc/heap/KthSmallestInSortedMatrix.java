@@ -1,10 +1,11 @@
-package net.lc;
+package net.lc.heap;
 
 import java.util.PriorityQueue;
 
 /**
  * https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/submissions/
  * Priority-Queue (heap)
+ * 378
  */
 public class KthSmallestInSortedMatrix {
     static class Cell implements Comparable<Cell> {
@@ -29,6 +30,11 @@ public class KthSmallestInSortedMatrix {
 
         if (k == matrix.length * matrix.length) return matrix[matrix.length-1][matrix.length-1];
 
+        /**
+         * Start from top-left (0,0), and move both right and down.
+         * Since a cell can be visited from top and left, maintain a processed-state so that
+         * the same cell is not processed twice.
+         */
         boolean[][] processed = new boolean[matrix.length][matrix.length];
         PriorityQueue<Cell> pq = new PriorityQueue<>();
         pq.add(new Cell(row, col, matrix[row][col]));

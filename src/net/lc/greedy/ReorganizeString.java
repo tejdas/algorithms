@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 /**
  * https://leetcode.com/problems/reorganize-string/submissions/
  * Greedy
+ * PriorityQueue
  * 767
  */
 public class ReorganizeString {

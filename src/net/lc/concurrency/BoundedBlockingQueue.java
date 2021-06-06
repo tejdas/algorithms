@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.concurrency;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * https://leetcode.com/problems/design-bounded-blocking-queue/
  * MT
+ * 1188
  */
 public class BoundedBlockingQueue {
     private final Queue<Integer> queue = new LinkedList<>();

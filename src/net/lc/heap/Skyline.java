@@ -1,9 +1,11 @@
-package net.lc;
+package net.lc.heap;
 
 import java.util.*;
 
 /**
  * 218
+ * PriorityQueue
+ * Heap
  */
 public class Skyline {
     static class BuildingEdge implements Comparable<BuildingEdge> {

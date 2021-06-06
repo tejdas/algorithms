@@ -1,8 +1,12 @@
-package net.lc;
+package net.lc.recurse;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 22
+ * Recursion
+ */
 public class GenerateParenthesis {
     private final List<String> result = new ArrayList<>();
     public List<String> generateParenthesis(int n) {

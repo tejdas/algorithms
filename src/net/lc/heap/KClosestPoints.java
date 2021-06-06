@@ -1,10 +1,11 @@
-package net.lc;
+package net.lc.heap;
 
 import java.util.PriorityQueue;
 
 /**
  * https://leetcode.com/problems/k-closest-points-to-origin/submissions/
  * Priority-Queue
+ * 973
  */
 public class KClosestPoints {
 

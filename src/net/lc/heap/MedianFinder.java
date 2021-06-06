@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.heap;
 
 import java.util.Collections;
 import java.util.PriorityQueue;

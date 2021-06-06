@@ -1,7 +1,8 @@
-package net.lc;
+package net.lc.string;
 
 /**
  * Stack-like algorithm
+ * 1541
  */
 public class MinimumInsertionsToBalanceParens {
     public int minInsertions(String s) {
@@ -18,11 +19,13 @@ public class MinimumInsertionsToBalanceParens {
                 continue;
             }
 
+            // prev char is ). Now check the current char
             if ((index < array.length) && (array[index] == ')')) {
                 // ))
                 if (unmatchedLeftParens > 0) {
                     unmatchedLeftParens--;
                 } else {
+                    // we need to add a ( for the unmatched ))
                     result++;
                 }
                 index++;

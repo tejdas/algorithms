@@ -11,7 +11,7 @@ import java.util.List;
 public class NumberOfIslandsII {
     private static final int[][] neighs = {{-1, 0}, {1,0}, {0,-1}, {0,1}};
     static class UnionFind {
-        int count = 0; // # of connected components
+        int numConnectedComponents = 0; // # of connected components
         /**
          * Root parent of the cell
          */
@@ -42,7 +42,7 @@ public class NumberOfIslandsII {
         public UnionFind(int m, int n) {
             this.rows = m;
             this.cols = n;
-            count = 0;
+            numConnectedComponents = 0;
             parent = new int[m * n];
             rank = new int[m * n];
             this.grid = new int[m][n];
@@ -52,7 +52,7 @@ public class NumberOfIslandsII {
             if (grid[x][y] == 1) return;
             grid[x][y] = 1;
             int curCell = x * cols + y;
-            count++;
+            numConnectedComponents++;
             parent[curCell] = curCell;
             for (int[] neigh : neighs) {
                 int nx = x + neigh[0];
@@ -97,14 +97,14 @@ public class NumberOfIslandsII {
                 /**
                  * After the union, we have one less island.
                  */
-                --count;
+                --numConnectedComponents;
             } else {
                 // already belong to the same island
             }
         }
 
-        public int getCount() {
-            return count;
+        public int getNumConnectedComponents() {
+            return numConnectedComponents;
         }
     }
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
@@ -116,7 +116,7 @@ public class NumberOfIslandsII {
             int curx = pos[0];
             int cury = pos[1];
             uf.addCell(curx, cury);
-            result.add(uf.getCount());
+            result.add(uf.getNumConnectedComponents());
         }
         return result;
     }

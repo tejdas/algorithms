@@ -1,8 +1,6 @@
-package net.lc;
+package net.lc.greedy;
 
-import java.util.HashSet;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 /**
  * https://leetcode.com/problems/minimum-number-of-refueling-stops/submissions/

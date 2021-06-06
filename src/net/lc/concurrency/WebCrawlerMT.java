@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.concurrency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,9 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * https://leetcode.com/problems/web-crawler-multithreaded/
- * 19/20 tests pass. Last one TLE
+ * 1242
+ * BFS
+ * MT
  */
 class WebCrawlerMT {
     interface HtmlParser {
