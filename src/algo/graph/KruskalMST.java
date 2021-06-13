@@ -161,6 +161,10 @@ public class KruskalMST {
                 if (r1 != r2) {
                     rootMap.put(r2, r1);
                 } else {
+                    /**
+                     * since the root for v1 and v2 are the same, adding the edge could create a cycle.
+                     * Therefore, skip the edge.
+                     */
                     continue;
                 }
             }
