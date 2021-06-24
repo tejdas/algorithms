@@ -141,8 +141,8 @@ public class MaxFlowGraph {
         this.source = source;
         this.target = target;
         for (int i = 0; i < vertexCount; i++) {
-            adjacentEdgesOut.put(i, new ArrayList<MaxFlowDEdge>());
-            adjacentEdgesIn.put(i, new ArrayList<MaxFlowDEdge>());
+            adjacentEdgesOut.put(i, new ArrayList<>());
+            adjacentEdgesIn.put(i, new ArrayList<>());
         }
     }
 
