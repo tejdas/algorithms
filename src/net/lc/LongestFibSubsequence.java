@@ -1,7 +1,6 @@
 package net.lc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/submissions/
@@ -58,7 +57,8 @@ public class LongestFibSubsequence {
         return maxLen;
     }
 
-    public int lenLongestFibSubseq(int[] array) {
+    public int lenLongestFibSubseq2(int[] array) {
+
 
         List[] res = new List[array.length];
 
@@ -69,8 +69,45 @@ public class LongestFibSubsequence {
 
         int maxLen = 0;
 
+
+        Map<Integer, List<Integer>> posMap = new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+            List<Integer> l = posMap.computeIfAbsent(array[i], k -> new ArrayList<>());
+            l.add(i);
+        }
+
+        for (int i = 0; i < array.length - 2; i++) {
+            for (int j = i + 1; j < array.length - 1; j++) {
+                int sum = array[i] + array[j];
+
+                if (posMap.containsKey(sum)) {
+                    List<Integer> l = posMap.get(sum);
+
+                    for (int id = l.size() - 1; id >= 0; id--) {
+                        int pid = l.get(id);
+                        if (pid <= j)
+                            break;
+
+                        if (res[pid] == null) {
+                            res[pid] = new ArrayList<>();
+                        }
+
+                        List<Integer> idlist = new ArrayList<>();
+                        idlist.add(array[i]);
+                        idlist.add(array[j]);
+                        idlist.add(array[pid]);
+                        res[pid].add(idlist);
+                        maxLen = Math.max(maxLen, idlist.size());
+                    }
+                }
+            }
+        }
+
+
         for (int i = 2; i < array.length; i++) {
-            res[i] = new ArrayList<>();
+            if (res[i] == null) {
+                res[i] = new ArrayList<>();
+            }
 
             for (int j = i - 1; j >= 0; j--) {
                 List<List<Integer>> jlists = res[j];
@@ -88,7 +125,7 @@ public class LongestFibSubsequence {
                     }
                 }
             }
-
+/*
             List<int[]> pairs = getPairSumTo(array, i);
             for (int[] pair : pairs) {
                 List<Integer> ilist = new ArrayList<>();
@@ -98,6 +135,7 @@ public class LongestFibSubsequence {
                 maxLen = Math.max(maxLen, ilist.size());
                 res[i].add(ilist);
             }
+            */
         }
         return maxLen;
     }
@@ -118,8 +156,46 @@ public class LongestFibSubsequence {
         return res;
     }
 
+    public int lenLongestFibSubseq(int[] array) {
+        final Map<Integer, TreeSet<Integer>> map = new HashMap<>();
+
+        for (int i = 0; i < array.length; i++) {
+            TreeSet<Integer> l = map.computeIfAbsent(array[i], k -> new TreeSet<>());
+            l.add(i);
+        }
+
+        int maxLen = 0;
+
+        for (int i = 0; i < array.length-2; i++) {
+            for (int j = i+1; j < array.length-1; j++) {
+                int sum = array[i] + array[j];
+                if (!map.containsKey(sum)) continue;
+
+                int fiblen = 2;
+
+                int prev = i;
+                int cur = j;
+                while (true) {
+                    TreeSet<Integer> set = map.get(sum);
+                    if (set == null) break;
+                    Integer index = set.higher(j);
+                    if (index == null) break;
+
+                    fiblen++;
+                    prev = cur;
+                    cur = index;
+                    sum = array[prev] + array[cur];
+                }
+
+                maxLen = Math.max(maxLen, fiblen);
+            }
+        }
+
+        return maxLen;
+    }
+
     public static void main(String[] args) {
-        /*
+
         {
             int[] input = { 1, 2, 3, 4, 5, 6, 7, 8 };
             System.out.println(new LongestFibSubsequence().lenLongestFibSubseq(input));
@@ -139,7 +215,7 @@ public class LongestFibSubsequence {
             int[] input = { 2, 4, 5, 6, 7, 8, 11, 13, 14, 15, 21, 22, 34 };
             System.out.println(new LongestFibSubsequence().lenLongestFibSubseq(input));
         }
-*/
+
         {
             int[] input = { 1,2,3,6,7,8,9,10,12,14,21,33 };
             System.out.println(new LongestFibSubsequence().lenLongestFibSubseq(input));
