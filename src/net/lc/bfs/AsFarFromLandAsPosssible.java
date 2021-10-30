@@ -30,6 +30,7 @@ public class AsFarFromLandAsPosssible {
                     foundWater = true;
                     distance[i][j] = Integer.MAX_VALUE;
                 } else {
+                    // land
                     distance[i][j] = 0;
                     queue.add(new int[] {i, j});
                 }

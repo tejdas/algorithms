@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
+ * 895
  * https://leetcode.com/problems/maximum-frequency-stack/submissions/
  * Stack
  * Map

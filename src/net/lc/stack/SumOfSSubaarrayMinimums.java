@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /**
+ * 907
  * https://leetcode.com/problems/sum-of-subarray-minimums/
  * Stack solution
  * NLE
@@ -24,9 +25,9 @@ public class SumOfSSubaarrayMinimums {
             int nle = nleArray[i];
 
             /**
-             * In all the subarray ranges [m,n], where m >= ple and n <= nle,
-             * current element is the minimum.
-             * Therefore, calculate number of subarrays
+             * In all the subarray ranges [ple,nle],
+             * current element at i is the minimum.
+             * Therefore, calculate number of subarrays where i is part of.
              */
             int numSubarrays = Math.abs(nle-i) * Math.abs(i-ple);
 

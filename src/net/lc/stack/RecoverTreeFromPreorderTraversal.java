@@ -74,16 +74,23 @@ public class RecoverTreeFromPreorderTraversal {
                 root = curNode;
                 stack.push(new NodeWithDepth(curNode, depth));
             } else if (depth == stack.peek().depth + 1) {
-                TreeNode peekNode = stack.peek().node;
-                if (peekNode.left == null) {
-                    peekNode.left = curNode;
-                }
+                /**
+                 * Go deep on left
+                 */
+                TreeNode par = stack.peek().node;
+                par.left = curNode;
                 stack.push(new NodeWithDepth(curNode, depth));
             } else {
                 while (depth <= stack.peek().depth) {
+                    /**
+                     * return from left traversal
+                     */
                     stack.pop();
                 }
 
+                /**
+                 * Stack peek is the parent and curNode is the right child.
+                 */
                 TreeNode par = stack.peek().node;
                 par.right = curNode;
                 stack.pop();

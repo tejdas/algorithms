@@ -68,16 +68,8 @@ public class TrappingRainWater {
             }
         }
 
-
-        if (!stack.isEmpty()) {
-            Stack<Integer> revStack = new Stack<>();
-            while (!stack.isEmpty()) {
-                revStack.push(stack.pop().index);
-            }
-
-            while (!revStack.isEmpty()) {
-                indexList.add(revStack.pop());
-            }
+        for (Pair p : stack) {
+            indexList.add(p.index);
         }
 
         int sum = 0;

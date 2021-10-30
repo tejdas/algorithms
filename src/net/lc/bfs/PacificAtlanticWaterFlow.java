@@ -37,6 +37,10 @@ public class PacificAtlanticWaterFlow {
      * We need to start from coast cells (edge) and traverse BFS to higher grounds.
      * Do this BFS traversal twice, once from A coast cells and then from P coast cells.
      * The cells that are visited during both BFS are the answer.
+     *
+     * Also, for the coastal cells, sort it, and start BFS from cells of lower elevation,
+     * so that the BFS could traverse coastal cells of higher elevation as well.
+     *
      * @param matrix
      * @return
      */

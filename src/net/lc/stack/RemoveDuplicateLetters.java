@@ -1,6 +1,5 @@
 package net.lc.stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -17,7 +16,6 @@ public class RemoveDuplicateLetters {
          * So, countArray basically contains a count of unseen characters.
          */
         int[] countArray = new int[26];
-        Arrays.fill(countArray, 0);
 
         /**
          * Maintain a boolean array to indicate if a character is processed, or it
@@ -44,6 +42,7 @@ public class RemoveDuplicateLetters {
             }
 
             /**
+             * Current character is not processed (in-stack yet).
              * while the current character is smaller than the top-char in stack, and top-char has more occurrences later,
              * pop the top-char.
              */

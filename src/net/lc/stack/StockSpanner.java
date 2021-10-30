@@ -13,40 +13,49 @@ public class StockSpanner {
      * (starting from today and going backwards) for which the price of the stock was less than
      * or equal to today's price.
      */
-    static class Pair {
+    static class PosPair {
         int stock;
-        int span;
+        int pos;
 
-        public Pair(int stock, int span) {
+        public PosPair(int stock, int pos) {
             this.stock = stock;
-            this.span = span;
+            this.pos = pos;
         }
     }
 
-    /**
-     * Maintain a Stock element of current price, and the span
-     * (range of days  which it was greater)
-     */
-    private final Stack<Pair> stack = new Stack<>();
+    private final Stack<PosPair> posStack = new Stack<>();
+    private int curPos = 0;
     public StockSpanner() {
     }
 
     public int next(int price) {
-
-        int span = 1;
-        /**
-         * compute the current span, by popping all lesser stocks the top
-         * and adding their spans.
-         */
-        while (!stack.isEmpty() && price >= stack.peek().stock) {
-            Pair popped = stack.pop();
-            span += popped.span;
+        int span;
+        curPos++;
+        while (!posStack.isEmpty() && price >= posStack.peek().stock) {
+            PosPair popped = posStack.pop();
         }
 
+        if (posStack.isEmpty()) {
+            span = curPos;
+        }
+        else {
+            span = curPos - posStack.peek().pos;
+        }
         /**
          * Push current element.
          */
-        stack.push(new Pair(price, span));
+        posStack.push(new PosPair(price, curPos));
         return span;
+    }
+
+    public static void main(String[] args) {
+        StockSpanner ss = new StockSpanner();
+        System.out.println(ss.next(100));
+        System.out.println(ss.next(80));
+        System.out.println(ss.next(60));
+        System.out.println(ss.next(70));
+        System.out.println(ss.next(60));
+        System.out.println(ss.next(75));
+        System.out.println(ss.next(85));
     }
 }

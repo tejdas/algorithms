@@ -3,6 +3,7 @@ package net.lc.binarytree;
 /**
  * 98
  * BST
+ * In-order traversal.
  */
 public class ValidateBST {
     static class TreeNode {
@@ -15,6 +16,9 @@ public class ValidateBST {
         }
     }
 
+    /**
+     * Use to validate that the inorder traversal is sorted.
+     */
     private long lastSeenValue = Long.MIN_VALUE;
 
     public boolean isValidBST(final TreeNode root) {
@@ -30,17 +34,15 @@ public class ValidateBST {
     }
 
     boolean isBinarySearchTree(final TreeNode node) {
-        if (node.left != null) {
-            if (!isBinarySearchTree(node.left))
-                return false;
-        }
+        if (node == null) return true;
+
+        if (!isBinarySearchTree(node.left))
+            return false;
 
         if (node.val <= lastSeenValue)
             return false;
         lastSeenValue = node.val;
-        if (node.right != null)
-            return isBinarySearchTree(node.right);
-        else
-            return true;
+
+        return isBinarySearchTree(node.right);
     }
 }

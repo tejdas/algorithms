@@ -30,7 +30,7 @@ public class MinimumRemoveForValidParens {
                     toRemove.add(index);
                 } else {
                     /**
-                     * found a matching ( for a ). So, we are good
+                     * found a matching ) for a (. So, we are good
                      */
                     posStack.pop();
                 }

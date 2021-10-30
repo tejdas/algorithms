@@ -9,7 +9,6 @@ public class BinaryTreeMaxPathSum {
         int val;
         TreeNode left;
         TreeNode right;
-        int key = 0;
         TreeNode(int x) { val = x; }
     }
     private int maxSum = Integer.MIN_VALUE;
@@ -23,6 +22,9 @@ public class BinaryTreeMaxPathSum {
 
     /**
      * Max sum from one of the child nodes ending at curNode.
+     * Thing to note here is that, here, the recursive function does not
+     * directly return the result, but it is used to compute a partial result,
+     * and the (max) result is stored in a class-member attribute.
      * @param curNode
      * @return
      */
@@ -32,8 +34,16 @@ public class BinaryTreeMaxPathSum {
         int maxLeft = maxPathEndingAtCurNode(curNode.left);
         int maxRight = maxPathEndingAtCurNode(curNode.right);
 
+        /**
+         * maxSum stores the maxSum so far starting from a lchild and going thru the node and ending at a rchild.
+         */
         maxSum = Math.max(maxSum, curNode.val + Math.max(0, maxLeft) + Math.max(0, maxRight));
 
-        return Math.max(curNode.val, curNode.val + Math.max(maxLeft, maxRight));
+        /**
+         * maxPathEndingAtCurNode is calculated from two values:
+         * max of (LChildTraversal + RChildTraversal) + curNode
+         */
+        int maxChildVal = Math.max(maxLeft, maxRight);
+        return curNode.val + Math.max(0, maxChildVal);
     }
 }

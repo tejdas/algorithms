@@ -23,10 +23,23 @@ class HouseRobberIII {
         return Math.max(val1, val2);
     }
 
-    public int traverse(TreeNode curNode, boolean includeCurNode) {
+    /**
+     *
+     * @param curNode
+     * @param mayIncludeCurNode; if true, then may or may not include curNode. If false, definitely do not include curNode.
+     * @return
+     */
+    public int traverse(TreeNode curNode, boolean mayIncludeCurNode) {
         if (curNode == null) return 0;
 
-        if (includeCurNode) {
+        if (mayIncludeCurNode) {
+            /**
+             * Two options:
+             * Include curNode and exclude children
+             * OR
+             * Exclude curNode and include children
+             * This makes sure that not all alternate nodes in the hierarchy are automatically selected.
+             */
             int val1 = curNode.val + traverse(curNode.left, false) + traverse(curNode.right, false);
             int val2 = traverse(curNode.left, true) + traverse(curNode.right, true);
             return Math.max(val1, val2);

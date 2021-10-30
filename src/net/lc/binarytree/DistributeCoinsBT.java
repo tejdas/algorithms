@@ -30,10 +30,8 @@ public class DistributeCoinsBT {
 
     static class TreeNodeInfo {
         TreeNode treeNode;
-        int nl = 0;
-        int nr = 0;
-        int coinl = 0;
-        int coinr = 0;
+        int numNodes;
+        int numCoins;
 
         TreeNodeInfo left;
         TreeNodeInfo right;
@@ -46,24 +44,12 @@ public class DistributeCoinsBT {
     private int result = 0;
 
     public int distributeCoins(TreeNode root) {
-        Pair rootPair = populateTreeNodeInfo(root);
-        distribute(rootPair.treeNodeInfo, 0);
+        TreeNodeInfo rootPair = populateTreeNodeInfo(root);
+        distribute(rootPair, 0);
         return result;
     }
 
-    static class Pair {
-        TreeNodeInfo treeNodeInfo;
-        int numNodes;
-        int numCoins;
-
-        public Pair(TreeNodeInfo treeNodeInfo, int numNodes, int numCoins) {
-            this.treeNodeInfo = treeNodeInfo;
-            this.numNodes = numNodes;
-            this.numCoins = numCoins;
-        }
-    }
-
-    private Pair populateTreeNodeInfo(TreeNode treeNode) {
+    private TreeNodeInfo populateTreeNodeInfo(TreeNode treeNode) {
         if (treeNode == null) return null;
 
         TreeNodeInfo treeNodeInfo = new TreeNodeInfo(treeNode);
@@ -72,73 +58,63 @@ public class DistributeCoinsBT {
         int numCoins = treeNodeInfo.treeNode.val;
 
         if (treeNode.left != null) {
-            Pair lp = populateTreeNodeInfo(treeNode.left);
-            treeNodeInfo.nl = lp.numNodes;
-            treeNodeInfo.coinl = lp.numCoins;
-            treeNodeInfo.left = lp.treeNodeInfo;
+            treeNodeInfo.left = populateTreeNodeInfo(treeNode.left);
+            numNodes += treeNodeInfo.left.numNodes;
+            numCoins += treeNodeInfo.left.numCoins;
         }
 
         if (treeNode.right != null) {
-            Pair lp = populateTreeNodeInfo(treeNode.right);
-            treeNodeInfo.nr = lp.numNodes;
-            treeNodeInfo.coinr = lp.numCoins;
-            treeNodeInfo.right = lp.treeNodeInfo;
+            treeNodeInfo.right = populateTreeNodeInfo(treeNode.right);
+            numNodes += treeNodeInfo.right.numNodes;
+            numCoins += treeNodeInfo.right.numCoins;
         }
 
-        numNodes += treeNodeInfo.nl + treeNodeInfo.nr;
-        numCoins += treeNodeInfo.coinl + treeNodeInfo.coinr;
+        treeNodeInfo.numCoins = numCoins;
+        treeNodeInfo.numNodes = numNodes;
 
-        return new Pair(treeNodeInfo, numNodes, numCoins);
+        return treeNodeInfo;
     }
 
     /**
      * Post-order
      * @param treeNodeInfo
-     * @param extraCoins
+     * @param extraCoins: got extra coins from parent
      * @return
      */
     private int distribute(TreeNodeInfo treeNodeInfo, int extraCoins) {
         if (extraCoins > 0) {
-            //System.out.println("From parent, TreeNode: " + treeNodeInfo.treeNode.val + " got extra coins: " + extraCoins);
             result += extraCoins;
-        }
-
-        if (treeNodeInfo.left != null && treeNodeInfo.coinl == treeNodeInfo.nl) {
-            distribute(treeNodeInfo.left, 0);
-        }
-
-        if (treeNodeInfo.right != null && treeNodeInfo.coinr == treeNodeInfo.nr) {
-            distribute(treeNodeInfo.right, 0);
         }
 
         int gotFromChild = 0;
         int gaveChild = 0;
-        if (treeNodeInfo.coinl > treeNodeInfo.nl) {
-            int got = distribute(treeNodeInfo.left, 0);
-            if (got > 0) {
-                //System.out.println("From left-child, TreeNode: " + treeNodeInfo.treeNode.val + " got surplus coins: " + got);
+
+        if (treeNodeInfo.left != null) {
+            if (treeNodeInfo.left.numCoins == treeNodeInfo.left.numNodes) {
+                distribute(treeNodeInfo.left, 0);
+            } else if (treeNodeInfo.left.numCoins > treeNodeInfo.left.numNodes) {
+                int got = distribute(treeNodeInfo.left, 0);
+
+                result += got;
+                gotFromChild += got;
+            } else {
+                gaveChild += (treeNodeInfo.left.numNodes - treeNodeInfo.left.numCoins);
+                distribute(treeNodeInfo.left, (treeNodeInfo.left.numNodes - treeNodeInfo.left.numCoins));
             }
-            result += got;
-            gotFromChild += got;
         }
 
-        if (treeNodeInfo.coinr > treeNodeInfo.nr) {
-            int got = distribute(treeNodeInfo.right, 0);
-            if (got > 0) {
-               //System.out.println("From right-child, TreeNode: " + treeNodeInfo.treeNode.val + " got surplus coins: " + got);
+        if (treeNodeInfo.right != null) {
+            if (treeNodeInfo.right.numCoins == treeNodeInfo.right.numNodes) {
+                distribute(treeNodeInfo.right, 0);
+            } else if (treeNodeInfo.right.numCoins > treeNodeInfo.right.numNodes) {
+                int got = distribute(treeNodeInfo.right, 0);
+
+                result += got;
+                gotFromChild += got;
+            } else {
+                gaveChild += (treeNodeInfo.right.numNodes - treeNodeInfo.right.numCoins);
+                distribute(treeNodeInfo.right, (treeNodeInfo.right.numNodes - treeNodeInfo.right.numCoins));
             }
-            result += got;
-            gotFromChild += got;
-        }
-
-        if (treeNodeInfo.coinl < treeNodeInfo.nl) {
-            gaveChild += (treeNodeInfo.nl - treeNodeInfo.coinl);
-            distribute(treeNodeInfo.left, (treeNodeInfo.nl - treeNodeInfo.coinl));
-        }
-
-        if (treeNodeInfo.coinr < treeNodeInfo.nr) {
-            gaveChild += (treeNodeInfo.nr - treeNodeInfo.coinr);
-            distribute(treeNodeInfo.right, (treeNodeInfo.nr - treeNodeInfo.coinr));
         }
 
         int surplus = gotFromChild - gaveChild + extraCoins + treeNodeInfo.treeNode.val -1;

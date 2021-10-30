@@ -26,6 +26,10 @@ public class MinimumKnightMoves {
                 visited[i][j] = false;
             }
         }
+        /**
+         * consider this as a board of 605 X 605
+         * Center (starting point) is 302 X 302
+         */
         board[302][302] = 0;
 
         int targetX = 302+x;
@@ -53,9 +57,8 @@ public class MinimumKnightMoves {
                     if (neighx == targetX && neighy == targetY) {
                         return board[targetX][targetY];
                     }
-                    if (!visited[neighx][neighy]) {
-                        queue.add(new int[]{neighx,neighy});
-                    }
+
+                    queue.add(new int[]{neighx,neighy});
                 }
             }
         }

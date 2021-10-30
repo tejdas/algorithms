@@ -8,7 +8,7 @@ import java.util.*;
  * Priority-Queue
  */
 public class TaskScheduler {
-    private final Map<Character, Integer> taskCountMap = new HashMap<>();
+    private final int[] taskCountArray = new int[26];
 
     static class Task implements Comparable<Task> {
         private final char taskId;
@@ -40,7 +40,6 @@ public class TaskScheduler {
     private Queue<ParkedTask> parkedTaskList = new LinkedList<>();
     public int leastInterval(char[] tasks, int n) {
 
-        taskCountMap.clear();
         parkedTaskList.clear();
 
         if (tasks == null || tasks.length == 0) {
@@ -48,16 +47,15 @@ public class TaskScheduler {
         }
 
         for (char c : tasks) {
-            if (taskCountMap.containsKey(c)) {
-                taskCountMap.put(c, 1 + taskCountMap.get(c));
-            } else {
-                taskCountMap.put(c, 1);
-            }
+            taskCountArray[c - 'A']++;
         }
 
         PriorityQueue<Task> pq = new PriorityQueue<>();
-        for (Map.Entry<Character, Integer> entry : taskCountMap.entrySet()) {
-            pq.add(new Task(entry.getKey(), entry.getValue()));
+        for (int i = 0; i < taskCountArray.length; i++) {
+            if (taskCountArray[i] > 0) {
+                char c = (char) ('A' + i);
+                pq.add(new Task(c, taskCountArray[i]));
+            }
         }
 
         int timeTaken = 0;

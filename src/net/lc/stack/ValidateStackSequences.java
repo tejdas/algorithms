@@ -10,41 +10,6 @@ import java.util.Stack;
  * 946
  */
 public class ValidateStackSequences {
-    public boolean validateStackSequences2(int[] pushed, int[] popped) {
-
-        Stack<Integer> stack = new Stack<>();
-
-        int pushIndex = 0;
-        int popIndex = 0;
-
-        while (pushIndex < pushed.length) {
-
-            if (pushed[pushIndex] == popped[popIndex]) {
-                pushIndex++;
-                popIndex++;
-                if (popIndex == popped.length) break;
-            }
-
-
-            while (!stack.isEmpty() && stack.peek() == popped[popIndex]) {
-                stack.pop();
-                popIndex++;
-                if (popIndex == popped.length) break;
-            }
-
-            if (pushIndex == pushed.length) break;
-            stack.push(pushed[pushIndex++]);
-        }
-
-        while (!stack.isEmpty() && popIndex < popped.length) {
-            if (popped[popIndex] != stack.pop()) return false;
-            popIndex++;
-        }
-
-        if (stack.isEmpty() && popIndex == popped.length) return true;
-        return false;
-    }
-
     public boolean validateStackSequences(int[] pushed, int[] popped) {
 
         Stack<Integer> stack = new Stack<>();
@@ -52,18 +17,28 @@ public class ValidateStackSequences {
         int pushIndex = 0;
         int popIndex = 0;
 
-        Set<Integer> seen = new HashSet<>();
+        /**
+         * Use this to keep track of values seen in the pushed array
+         */
+        boolean[] seen = new boolean[1001];
 
         while (popIndex < popped.length) {
             int popVal = popped[popIndex];
 
-            while (!seen.contains(popVal) && pushIndex < pushed.length) {
+            /**
+             * push the values from pushed array into the stack until we have seen a value from popped array
+             */
+            while (!seen[popVal] && pushIndex < pushed.length) {
                 int pushval = pushed[pushIndex++];
                 stack.push(pushval);
-                seen.add(pushval);
+                seen[pushval] = true;
             }
 
-            while (seen.contains(popVal) && !stack.isEmpty()) {
+            /**
+             * Now try to pop the values from stack as long as they match with popped array
+             * and are seen before.
+             */
+            while (seen[popVal] && !stack.isEmpty()) {
                 if (stack.peek() != popVal) return false;
                 popIndex++;
                 stack.pop();

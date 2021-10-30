@@ -59,6 +59,10 @@ public class CheapestFlightsWithinKStops {
     }
 
     private int shortestPath(int n, int src, int dest, int k) {
+        /**
+         * 2-D array to store two aspects of greedy algorithm:
+         * With i number of stops, what is the min cost for a particular node.
+         */
         int[][] greedyMap = new int[n+1][n+1];
         for (int i = 0; i < n; i++) {
             if (i == src) {

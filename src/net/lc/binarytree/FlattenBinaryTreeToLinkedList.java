@@ -26,6 +26,15 @@ public class FlattenBinaryTreeToLinkedList {
         }
     }
 
+    /**
+     * Use Pre-Order traversal to build LL.
+     * Also, in Pre-Order, after return from LChild, we can use it to
+     * temporarily store the linkage.
+     *
+     * @param cur
+     * @param parent
+     * @param isRight
+     */
     private void flattenPreOrder(TreeNode cur, TreeNode parent, boolean isRight) {
         if (isRight) {
             if (parent != null) {

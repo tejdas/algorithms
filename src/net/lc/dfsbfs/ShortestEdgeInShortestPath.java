@@ -42,8 +42,8 @@ public class ShortestEdgeInShortestPath {
     private int dest = 0;
     private boolean[] visited;
 
-    public int solve(final int A, final int[][] B, final int C, final int D) {
-        dest = D;
+    public int solve(final int A, final int[][] B, final int source, final int dest) {
+        this.dest = dest;
         visited = new boolean[A+1];
         graph = new List[A + 1];
         for (int i = 1; i <= A; i++) {
@@ -60,7 +60,7 @@ public class ShortestEdgeInShortestPath {
 
         minDistance = new int[A + 1];
         Arrays.fill(minDistance, Integer.MAX_VALUE);
-        minDistance[C] = 0;
+        minDistance[source] = 0;
 
         /**
          * First run Dijkstra BFS algorithm to find shortest path.
@@ -68,7 +68,7 @@ public class ShortestEdgeInShortestPath {
          * The reason for all-part DFS is that there could be multiple shortest paths.
          */
         PriorityQueue<PathWeightToV> pq = new PriorityQueue<>();
-        pq.add(new PathWeightToV(C, 0));
+        pq.add(new PathWeightToV(source, 0));
 
         while (!pq.isEmpty()) {
             PathWeightToV curV = pq.remove();
@@ -81,14 +81,14 @@ public class ShortestEdgeInShortestPath {
                      */
                     minDistance[e.to] = minDistance[curV.vertex] + e.weight;
 
-                    if (e.to != D) {
+                    if (e.to != dest) {
                         pq.add(new PathWeightToV(e.to, minDistance[e.to]));
                     }
                 }
             }
         }
 
-        dfs(C, 0, Integer.MAX_VALUE);
+        dfs(source, 0, Integer.MAX_VALUE);
 
         return minEdge;
     }
@@ -112,7 +112,7 @@ public class ShortestEdgeInShortestPath {
 
         for (Edge e : adjEdges) {
             /**
-             * Only consider vertices that lead to shortest paths.
+             * Only consider unvisited vertices that lead to shortest paths.
              */
             int to = e.to;
             if (!visited[to] && (curDistance + e.weight == minDistance[to])) {

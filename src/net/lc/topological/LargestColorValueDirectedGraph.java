@@ -4,9 +4,12 @@ import java.util.*;
 
 /**
  * 1857
- * Topological sort
+ * Topological sort (peeling onion)
  * BFS
  * Greedy
+ * Dynamic Programming.
+ * If we want to use DP technique for a DAG, then we need to traverse the nodes
+ * in the topological order.
  */
 public class LargestColorValueDirectedGraph {
 
@@ -40,6 +43,8 @@ public class LargestColorValueDirectedGraph {
         /**
          * 2D array Num-Nodes * Total available colors
          * Memoized info
+         * dp[nodeIndex][colorIndex] means the maximum value at nodeIndex, with colorIndex
+         *
          */
         dp = new int[nodes][colorCount];
 
@@ -89,10 +94,14 @@ public class LargestColorValueDirectedGraph {
                     for (int color = 0; color < colorCount; color++) {
                         if (color == neighborColorId) {
                             /**
-                             * For neighbor's color
+                             * neighbor's color same as current node's color
                              */
                             dp[neighbor][color] = Math.max(dp[neighbor][color], 1 + dp[nodeId][color]);
                         } else {
+                            /**
+                             * neighbor's color different than current node's color.
+                             * Set neighbor's value to be the max of present val and current node's val.
+                             */
                             dp[neighbor][color] = Math.max(dp[neighbor][color], dp[nodeId][color]);
                         }
                     }

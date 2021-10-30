@@ -20,6 +20,10 @@ public class SetIntersectionSizeAtleastTwo {
 
         @Override
         public int compareTo(Interval o) {
+            /**
+             * pick up the interval that ends first.
+             * If two intervals end at the same time, pick up the one that begins last.
+             */
             if (this.end != o.end) {
                 return Integer.compare(this.end, o.end);
             }
@@ -47,7 +51,9 @@ public class SetIntersectionSizeAtleastTwo {
         List<Integer> result = new ArrayList<>();
 
         Interval intv = pq.poll();
-        //System.out.println("processing: " + intv);
+
+        // add last two numbers of first interval
+        // keep track of two numbers: prev and cur
         result.add(intv.end-1);
         result.add(intv.end);
 
@@ -56,8 +62,11 @@ public class SetIntersectionSizeAtleastTwo {
 
         while (!pq.isEmpty()) {
             intv = pq.poll();
-            //System.out.println("processing: " + intv);
 
+            /**
+             * New interval begins after cur, so no overlap.
+             * Add last two numbers.
+             */
             if (intv.begin > cur) {
                 result.add(intv.end-1);
                 result.add(intv.end);
@@ -67,6 +76,14 @@ public class SetIntersectionSizeAtleastTwo {
                 continue;
             }
 
+            /**
+             * new interval begins at cur. So, consider that added.
+             * Add the last number.
+             * Keep track of first and last number of current interval
+             * as prev and cur. The reason being: there could potentially be
+             * a subsequent interval that begins before current interval, so that will be covered
+             * as well.
+             */
             if (intv.begin == cur) {
                 result.add(intv.end);
                 prev = cur;
@@ -74,6 +91,10 @@ public class SetIntersectionSizeAtleastTwo {
                 continue;
             }
 
+            /**
+             * new interval's begin is between prev and cur.
+             * In that case, just add last number.
+             */
             if (intv.begin > prev && intv.begin < cur) {
                 result.add(intv.end);
                 prev = cur;
@@ -81,6 +102,10 @@ public class SetIntersectionSizeAtleastTwo {
                 continue;
             }
 
+            /**
+             * new interval completely overlaps prev and cur.
+             * No need to do anything.
+             */
             if (intv.begin <= prev && intv.end >= cur) {
                 continue;
             }

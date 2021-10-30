@@ -46,8 +46,6 @@ public class ShortestPathBinaryMatrix {
                                 queue.add(new int[] { i, j });
                             }
                         }
-
-                        //if (!visited[i][j]) queue.add(new int[] {i,j});
                     }
                 }
             }

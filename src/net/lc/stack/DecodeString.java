@@ -20,16 +20,14 @@ public class DecodeString {
         while (i < array.length) {
             char c = array[i];
             if (Character.isDigit(c)) {
-                StringBuilder sb = new StringBuilder();
-                while (Character.isDigit(c)) {
-                    sb.append(c);
-                    i++;
-                    c = array[i];
-                }
-                i--;
+                int sum = Character.digit(c, 10);
 
-                Integer val = Integer.parseInt(sb.toString());
-                istack.push(val);
+                while (i+1 < array.length && (Character.isDigit(array[i+1]))) {
+                    i++;
+                    int num = Character.digit(array[i], 10);
+                    sum = sum * 10 + num;
+                }
+                istack.push(sum);
             } else if (c == '[') {
                 sstack.push(new StringBuilder());
             } else if (c == ']') {
@@ -52,5 +50,9 @@ public class DecodeString {
         }
 
         return sstack.pop().toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new DecodeString().decodeString("2[abc]3[cd]ef"));
     }
 }

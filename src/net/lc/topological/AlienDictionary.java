@@ -139,17 +139,17 @@ public class AlienDictionary {
         return topList;
     }
 
-    static void dfsRecurse(Character cur, Stack<Character> stack) {
+    static void dfsRecurse(Character cur, Stack<Character> topologicalStack) {
         visited.add(cur);
 
         GNode curNode = map.get(cur);
         for (Character c : curNode.adjNodes) {
             if (!visited.contains(c)) {
-                dfsRecurse(c, stack);
+                dfsRecurse(c, topologicalStack);
             }
         }
 
-        stack.push(cur);
+        topologicalStack.push(cur);
     }
 
     public String alienOrder(String[] words) {

@@ -3,6 +3,7 @@ package net.lc.graphgreedy;
 import java.util.*;
 
 /**
+ * 1168
  * https://leetcode.com/problems/optimize-water-distribution-in-a-village/submissions/
  * MST (minimum spanning tree)
  * Prim's algorithm
@@ -31,6 +32,17 @@ public class OptimumWaterDistribution {
     }
 
     private List[] adjMap;
+
+    /**
+     * Water can be supplied to a house using (a) pipe from another house, or (b) digging a well.
+     * It's easy to visualize a pipe between two houses and the cost (edge weight).
+     * But well-cost is node-weight. So to represent it as edge-weight, we will draw an edge from
+     * an imaginary vertex (index-0) to the house, with the edge weight representing the well-cost.
+     * @param n
+     * @param wells
+     * @param pipes
+     * @return
+     */
     public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
         adjMap = new List[n+1];
         buildGraph(wells, pipes);

@@ -15,8 +15,6 @@ public class OpenTheLock {
 
         if (deadendSet.contains("0000")) return -1;
 
-        Set<String> visited = new HashSet<>();
-
         Queue<String> queue = new LinkedList<>();
 
         queue.add("0000");
@@ -27,9 +25,6 @@ public class OpenTheLock {
         while (!queue.isEmpty()) {
             String curNode = queue.remove();
 
-            if (visited.contains(curNode)) continue;
-            visited.add(curNode);
-
             int curD = distanceMap.get(curNode);
 
             List<String> neighbors = buildNeighbors(curNode);
@@ -38,14 +33,14 @@ public class OpenTheLock {
                     int neighD = distanceMap.get(s);
                     if (neighD > curD+1) {
                         distanceMap.put(s, curD+1);
+                        queue.add(s);
                     }
                 } else {
                     distanceMap.put(s, curD+1);
+                    queue.add(s);
                 }
 
                 if (s.equals(target)) return distanceMap.get(s);
-
-                if (!visited.contains(s)) queue.add(s);
             }
         }
         return -1;

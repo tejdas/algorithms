@@ -51,7 +51,7 @@ public class NextGreaterElement {
                 }
             }
             /**
-             * Store the current index in stack for later processing.
+             * Store the current index in stack for later processing (in stack until a bigger element is available).
              * Move the index by 1 modulo array-len.
              */
             stack.push(new SPair(index, val));

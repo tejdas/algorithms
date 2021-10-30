@@ -28,6 +28,14 @@ public class DivideChocolate {
         return search(smallestVal, totalSum, k);
     }
 
+    /**
+     * search for the max possible value between min and max.
+     * min is possible.
+     * @param min
+     * @param max
+     * @param m
+     * @return
+     */
     private int search(int min, int max, int m) {
         int left = min;
         int right = max;
@@ -38,6 +46,7 @@ public class DivideChocolate {
 
             boolean flag = isPossible(array, mid, m);
             if (flag) {
+                // mid is possible. So, update maxIsPossible
                 maxIsPossible = Math.max(mid, maxIsPossible);
                 left = mid+1;
             } else {
@@ -48,19 +57,22 @@ public class DivideChocolate {
         return maxIsPossible;
     }
 
+    /**
+     * Return true if it's possible to segment the array into k parts, with each part >= minLimit
+     * @param array
+     * @param minLimit
+     * @param k
+     * @return
+     */
     private boolean isPossible(int[] array, int minLimit, int k) {
-        //System.out.println("isPossible: " + minLimit);
         int subArrayCount = 0;
         int runningSum = 0;
 
         int index;
         for (index = 0; index < array.length; index++) {
             runningSum += array[index];
-            if (runningSum < minLimit) continue;
-
-            subArrayCount++;
-
             if (runningSum >= minLimit) {
+                subArrayCount++;
                 runningSum = 0;
             }
         }

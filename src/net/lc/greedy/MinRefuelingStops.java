@@ -14,7 +14,7 @@ public class MinRefuelingStops {
      * Logic
      *
      * Keep track of stations where we did not fuel
-     * (in a PriorityQueue with topFuelAvailble at top)
+     * (in a PriorityQueue with topFuelAvailable at top)
      *
      * From a Station that we decided to stop and refuel (curStop.
      * Find how far it can go (existingFuel + newFuelAtStation)

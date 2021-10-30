@@ -1,32 +1,27 @@
-package net.lc.stack;
-
-import java.util.Stack;
+package net.lc;
 
 /**
  * 921
- * Stack
  */
 public class MinimumAddToMakeParensValid {
     public int minAddToMakeValid(String input) {
         if (input == null || input.length() == 0) return 0;
         char[] array = input.toCharArray();
 
-        Stack<Character> stack = new Stack<>();
-
+        int unmatchedParen = 0;
         int count = 0;
         for (char c : array) {
             if (c == '(') {
-                stack.push(c);
+                unmatchedParen++;
             } else {
-                if (!stack.isEmpty()) {
-                    stack.pop();
+                if (unmatchedParen > 0) {
+                    unmatchedParen--;
                 } else {
                     // missing corresponding '('
                     count++;
                 }
             }
         }
-        // if the stack is not-empty, it would contain '('s for which no matching ')' was found
-        return count + stack.size();
+        return count + unmatchedParen;
     }
 }

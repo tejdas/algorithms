@@ -76,6 +76,9 @@ public class ShortestBridge {
         int shortestD = Integer.MAX_VALUE;
         Queue<int[]> queue = new LinkedList<>();
 
+        /**
+         * Start BFS from border cells
+         */
         for (int[] pos : borderCells) {
             distance[pos[0]][pos[1]] = 0;
 
@@ -94,8 +97,10 @@ public class ShortestBridge {
                         distance[x][y] = distance[pos[0]][pos[1]] + 1;
 
                         if (grid[x][y] == 1) {
+                            // reached the other island
                             shortestD = Math.min(shortestD, distance[x][y]-1);
                         } else {
+                            // in water cell; continue BFS
                             queue.add(new int[] { x, y });
                         }
                     }

@@ -50,6 +50,8 @@ public class RearrangeStringKDistanceApart {
         int pos = 0;
 
         /**
+         * Pick the next character from PriorityQueue with the highest remaining frequency.
+         *
          * For characters that cannot be immediately put (until k-distance, park in posMap
          * and add back to PQ once they satisfy k-distance).
          */
@@ -71,6 +73,10 @@ public class RearrangeStringKDistanceApart {
             }
 
             if (posMap.containsKey(pos-k)) {
+                /**
+                 * now they have satisfied the k-distance.
+                 * Remove from posMap, and put back in priority-queue.
+                 */
                 Pair p = posMap.remove(pos-k);
                 pq.add(p);
             }

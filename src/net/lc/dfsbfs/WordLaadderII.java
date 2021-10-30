@@ -39,7 +39,7 @@ public class WordLaadderII {
     }
 
     /**
-     * Build adjacencyMap and distanceMap (using greedy logic)
+     * Build adjacencyMap and distanceMap (using greedy shortest-path logic)
      * @param from
      * @param to
      */
@@ -121,9 +121,9 @@ public class WordLaadderII {
             for (String adj : adjset) {
                 /**
                  * Follow the shortest path (computed during BFS)
-                 * In other words, if the adj node distance is NOT  1 + cur node distance,
+                 * In other words, if the adj node distance is >  1 + cur node distance,
                  * it means it is not in the shortest path.
-                 * Therefore, do not consider it.
+                 * Therefore, do not consider that route.
                  */
                 if (distanceMap.get(adj) != null && distanceMap.get(adj) == curD+1) {
                     if (!dfsVisited.contains(adj)) {

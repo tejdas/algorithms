@@ -6,89 +6,102 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
+ * 968
  * https://leetcode.com/problems/binary-tree-cameras/submissions/
- * DFS
+ * DFS post-order
  * Greedy
  */
 public class BinaryTreeCamera {
+    private static int gIndex = 0;
     static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode() {
-        }
-
         TreeNode(int val) {
             this.val = val;
         }
+    }
 
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+    static class IndexedTreeNode{
+        int index;
+        IndexedTreeNode ileft;
+        IndexedTreeNode iright;
+        IndexedTreeNode() {
+            index = gIndex++;
         }
     }
 
-    private Set<TreeNode> coveredNodes = new HashSet<>();
-    private Set<TreeNode> cameraLocation = new HashSet<>();
+    private Set<Integer> coveredNodes = new HashSet<>();
+    private Set<Integer> cameraLocation = new HashSet<>();
 
     public int minCameraCover(TreeNode root) {
-        coveredNodes.add(null);
-        dfs(root, null);
+        IndexedTreeNode iroot = buildTree(root);
+        dfs(iroot, null);
         return cameraLocation.size();
     }
 
-    private void dfs(TreeNode cur, TreeNode par) {
-        if (cur.left == null & cur.right == null) {
+    private IndexedTreeNode buildTree(TreeNode cur) {
+        if (cur == null) return null;
+        IndexedTreeNode icur = new IndexedTreeNode();
+        icur.ileft = buildTree(cur.left);
+        icur.iright = buildTree(cur.right);
+        return icur;
+    }
+
+    private void dfs(IndexedTreeNode cur, IndexedTreeNode par) {
+        if (cur.ileft == null && cur.iright == null) {
             if (par == null) {
-                cameraLocation.add(cur);
-                coveredNodes.add(cur);
+                cameraLocation.add(cur.index);
+                coveredNodes.add(cur.index);
             }
             return;
         }
 
-        if (cur.left != null) {
-            dfs(cur.left, cur);
+        if (cur.ileft != null) {
+            dfs(cur.ileft, cur);
         }
 
-        if (cur.right != null) {
-            dfs(cur.right, cur);
+        if (cur.iright != null) {
+            dfs(cur.iright, cur);
         }
 
         boolean allchildrenCovered = true;
         boolean cameraAtChild = false;
 
-        if (cur.left != null) {
-            if (!coveredNodes.contains(cur.left)) {
+        if (cur.ileft != null) {
+            if (!coveredNodes.contains(cur.ileft.index)) {
                 allchildrenCovered = false;
             }
 
-            cameraAtChild = cameraAtChild || cameraLocation.contains(cur.left);
+            cameraAtChild = cameraAtChild || cameraLocation.contains(cur.ileft.index);
         }
 
-        if (cur.right != null) {
-            if (!coveredNodes.contains(cur.right)) {
+        if (cur.iright != null) {
+            if (!coveredNodes.contains(cur.iright.index)) {
                 allchildrenCovered = false;
             }
 
-            cameraAtChild = cameraAtChild || cameraLocation.contains(cur.right);
+            cameraAtChild = cameraAtChild || cameraLocation.contains(cur.iright.index);
         }
 
         if (!allchildrenCovered) {
-            cameraLocation.add(cur);
-            coveredNodes.add(cur);
-            coveredNodes.add(par);
-            coveredNodes.add(cur.left);
-            coveredNodes.add(cur.right);
+            cameraLocation.add(cur.index);
+            coveredNodes.add(cur.index);
+            if (par != null)
+                coveredNodes.add(par.index);
+            if (cur.ileft != null)
+                coveredNodes.add(cur.ileft.index);
+
+            if (cur.iright != null)
+                coveredNodes.add(cur.iright.index);
         } else {
-            if (coveredNodes.contains(cur)) {
+            if (coveredNodes.contains(cur.index)) {
                 return;
             }
 
             if (!cameraAtChild && par == null) {
-                cameraLocation.add(cur);
-                coveredNodes.add(cur);
+                cameraLocation.add(cur.index);
+                coveredNodes.add(cur.index);
             }
         }
     }
