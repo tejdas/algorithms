@@ -1,9 +1,9 @@
-package net.lc;
+package net.lc.binarytree;
 
 /**
  * 226
  * BinaryTree
- * Post-Order swap
+ * Post-Order traversal and swap
  */
 public class InvertBinaryTree {
     static class TreeNode {

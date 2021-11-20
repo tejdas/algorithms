@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.interval;
 
 import java.util.Arrays;
 
@@ -45,6 +45,9 @@ public class NonOverlappingIntervals {
         for (int i = 1; i < list.length; i++) {
             Interval cur = list[i];
             if (cur.beginTime < prev.endTime) {
+                /**
+                 * overlaps with prev interval, so need to be removed.
+                 */
                 result++;
             } else {
                 prev = cur;

@@ -1,7 +1,8 @@
-package net.lc;
+package net.lc.greedy;
 
 /**
  * 11
+ * Greedy
  * Two-pointer
  */
 public class ContainerWithMostWater {
@@ -13,10 +14,11 @@ public class ContainerWithMostWater {
 
         while (i < j) {
             int curArea = Math.min(height[i], height[j]) * (j-i);
-            if (curArea > maxArea) maxArea = curArea;
+            maxArea = Math.max(maxArea, curArea);
 
             /**
-             * Next, pickup a higher line, so that it can retain more water
+             * Next, pick up a new adjacent line, while sticking to whichever is the current higher line,
+             * so that it can retain more water.
              */
             if (height[i] < height[j]) {
                 i++;

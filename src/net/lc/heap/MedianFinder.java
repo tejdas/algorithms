@@ -10,11 +10,11 @@ import java.util.PriorityQueue;
  */
 public class MedianFinder {
     /**
-     * Stores bottom-half of numbers, with largest at the top
+     * Stores top-half of numbers, with smallest at the top
      */
     private final PriorityQueue<Integer> maxHeap = new PriorityQueue<>();
     /**
-     * Stores top-half of numbers, with smallest at the top
+     * Stores bottom-half of numbers, with largest at the top
      */
     private final PriorityQueue<Integer> minHeap = new PriorityQueue<>(Collections.reverseOrder());
 
@@ -51,5 +51,24 @@ public class MedianFinder {
         }
 
         return (double) maxHeap.peek();
+    }
+
+    public static void main(String[] args) {
+        MedianFinder mf = new MedianFinder();
+        for (int i = 0; i < 10; i++) {
+            mf.addNum(i);
+        }
+
+        System.out.println("Max heap contents");
+        while (!mf.maxHeap.isEmpty()) {
+            System.out.print(mf.maxHeap.remove().intValue() +  " ");
+        }
+        System.out.println();
+
+        System.out.println("Min heap contents");
+        while (!mf.minHeap.isEmpty()) {
+            System.out.print(mf.minHeap.remove().intValue() +  " ");
+        }
+        System.out.println();
     }
 }

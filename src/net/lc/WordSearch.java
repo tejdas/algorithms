@@ -1,100 +1,42 @@
 package net.lc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
+ * 79
  * DFS
  * Stack
  */
 public class WordSearch {
-    static class Cell {
-        @Override
-        public boolean equals(final Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            final Cell other = (Cell) obj;
-            return (column==other.column && row==other.row);
-        }
-
-        public Cell(final int row, final int column) {
-            this.row = row;
-            this.column = column;
-        }
-
-        int row;
-
-        int column;
-    }
-
     static char[][] matrix = null;
 
     static int rows;
 
     static int columns;
 
-    static void displayMatrix() {
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < columns; c++)
-                System.out.print(matrix[r][c] + "  ");
-            System.out.println();
-        }
-    }
+    static final int[][] neighs = {{0,1},{0,-1},{1,0},{-1,0}};
 
-    private static List<Cell> getNeighbors(final Stack<Cell> path, final Cell current) {
+    private boolean dfs(char[] array, int pos, final Set<Integer> path, final int[] current) {
+        System.out.println("DFS: pos " + pos + "  current: " + Arrays.toString(current) + "  path len: " + path.size());
+        if (pos == array.length-1) return true;
 
-        final List<Cell> neighbors = new ArrayList<>();
+        int curx = current[0];
+        int cury = current[1];
 
-        int x = current.row;
-        int y = current.column;
+        int curIndex = toIndex(curx, cury);
+        path.add(curIndex);
 
-        if (x-1 >= 0) {
-            Cell c = new Cell(x-1, y);
-            if (!path.contains(c)) {
-                neighbors.add(c);
+        for (int[] neigh : neighs) {
+            int neighx = curx + neigh[0];
+            int neighy = cury + neigh[1];
+
+            if (neighx >= 0 && neighx < rows && neighy >= 0 && neighy < columns) {
+                if (!path.contains(toIndex(neighx, neighy)) && matrix[neighx][neighy] == array[pos+1]) {
+                    if (dfs(array, pos+1, path, new int[] {neighx, neighy})) return true;
+                }
             }
         }
-
-        if (x+1 < rows) {
-            Cell c = new Cell(x+1, y);
-            if (!path.contains(c)) {
-                neighbors.add(c);
-            }
-        }
-
-        if (y-1 >= 0) {
-            Cell c = new Cell(x, y-1);
-            if (!path.contains(c)) {
-                neighbors.add(c);
-            }
-        }
-
-        if (y+1 < columns) {
-            Cell c = new Cell(x, y+1);
-            if (!path.contains(c)) {
-                neighbors.add(c);
-            }
-        }
-        return neighbors;
-    }
-
-    static boolean match(final char[] array, final int pos, final Stack<Cell> path, final Cell current) {
-        final List<Cell> neighbors = getNeighbors(path, current);
-        for (final Cell neighbor : neighbors) {
-            if (matrix[neighbor.row][neighbor.column] == array[pos]) {
-                path.push(neighbor);
-                if (pos == array.length - 1)
-                    return true;
-                if (match(array, pos + 1, path, neighbor))
-                    return true;
-                path.pop();
-            }
-        }
+        path.remove(curIndex);
         return false;
     }
 
@@ -113,26 +55,33 @@ public class WordSearch {
         columns = matrix[0].length;
 
         final char[] array = word.toCharArray();
-        final List<Cell> startCells = new ArrayList<>();
+        final List<int[]> startCells = new ArrayList<>();
         for (int r = 0; r < rows; r++)
             for (int c = 0; c < columns; c++)
                 if (matrix[r][c] == array[0])
-                    startCells.add(new Cell(r, c));
+                    startCells.add(new int[] {r,c});
 
         if (array.length == 1) {
             return !startCells.isEmpty();
         }
 
-        for (final Cell startCell : startCells) {
-            final Stack<Cell> paths = new Stack<>();
-            paths.add(startCell);
-            if (match(array, 1, paths, startCell)) {
-                //for (final Cell path : paths)
-                //  System.out.println(path.row + "  " + path.column);
+        for (int[] startCell : startCells) {
+            final Set<Integer> paths = new HashSet<>();
+            if (dfs(array, 0, paths, startCell)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    static int toIndex(int row, int col) {
+        return row * columns + col;
+    }
+
+    public static void main(String[] args) {
+        char[][] matrix = new char[][] {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+
+        System.out.println(new WordSearch().exist(matrix, "ABCCED"));
     }
 }

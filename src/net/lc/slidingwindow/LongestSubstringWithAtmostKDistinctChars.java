@@ -30,7 +30,7 @@ public class LongestSubstringWithAtmostKDistinctChars {
                     /**
                      * we have already found k distinct chars. Before taking the new char, try to see
                      * if we can move the left edge of the window, and skip past another distinct char,
-                     * so as to be able to accommodate current chafr.
+                     * so as to be able to accommodate current char.
                      */
                     while (leftPos < rightPos) {
                         if (lastOccurance.get(array[leftPos]) == leftPos) {

@@ -11,11 +11,11 @@ import java.util.Set;
  * https://leetcode.com/problems/longest-consecutive-sequence/
  */
 public class LongestConsecutiveSequence {
-    static class Info {
+    static class Range {
         int low;
         int high;
 
-        public Info(int low, int high) {
+        public Range(int low, int high) {
             this.low = low;
             this.high = high;
         }
@@ -32,7 +32,7 @@ public class LongestConsecutiveSequence {
      * m -> range(m,n)
      * n -> range(m,n)
      */
-    private final Map<Integer, Info> map = new HashMap<>();
+    private final Map<Integer, Range> map = new HashMap<>();
 
     public int longestConsecutive(int[] array) {
         if (array == null || array.length == 0) return 0;
@@ -49,37 +49,37 @@ public class LongestConsecutiveSequence {
                 /**
                  * Element is sandwiched between two ranges
                  */
-                Info lower = map.remove(val-1);
-                Info higher = map.remove(val+1);
-                Info info = new Info(lower.low, higher.high);
-                map.put(lower.low, info);
-                map.put(higher.high, info);
-                longestSequence = Math.max(info.getLength(), longestSequence);
+                Range lower = map.remove(val-1);
+                Range higher = map.remove(val+1);
+                Range range = new Range(lower.low, higher.high);
+                map.put(lower.low, range);
+                map.put(higher.high, range);
+                longestSequence = Math.max(range.getLength(), longestSequence);
             } else if (map.containsKey(val-1)) {
                 /**
                  * Element touches one range on left
                  */
-                Info lower = map.remove(val-1);
-                Info info = new Info(lower.low, val);
-                map.put(lower.low, info);
-                map.put(val, info);
-                longestSequence = Math.max(info.getLength(), longestSequence);
+                Range lower = map.remove(val-1);
+                Range range = new Range(lower.low, val);
+                map.put(lower.low, range);
+                map.put(val, range);
+                longestSequence = Math.max(range.getLength(), longestSequence);
             } else if (map.containsKey(val+1)) {
                 /**
                  * Element touches one range on right
                  */
-                Info higher = map.remove(val+1);
-                Info info = new Info(val, higher.high);
-                map.put(val, info);
-                map.put(higher.high, info);
-                longestSequence = Math.max(info.getLength(), longestSequence);
+                Range higher = map.remove(val+1);
+                Range range = new Range(val, higher.high);
+                map.put(val, range);
+                map.put(higher.high, range);
+                longestSequence = Math.max(range.getLength(), longestSequence);
             } else {
                 /**
                  * Element is not adjacent to any ranges; create a range with the current element only
                  */
-                Info info = new Info(val, val);
-                map.put(val, info);
-                longestSequence = Math.max(info.getLength(), longestSequence);
+                Range range = new Range(val, val);
+                map.put(val, range);
+                longestSequence = Math.max(range.getLength(), longestSequence);
             }
         }
         return longestSequence;

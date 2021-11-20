@@ -1,5 +1,8 @@
 package net.lc.dp;
 
+/**
+ * 1143
+ */
 public class LongestCommonSubsequence {
     int[][] memo =  null;
     public int longestCommonSubsequence(String text1, String text2) {
@@ -13,8 +16,7 @@ public class LongestCommonSubsequence {
         for (int i = 1; i <= a1.length; i++)  {
             for (int j = 1; j <= a2.length; j++)  {
 
-                int v1 = memo[i-1][j];
-                 v1 = Math.max(memo[i][j-1], v1);
+                int v1 = Math.max(memo[i][j-1], memo[i-1][j]);
 
                 if (a1[i-1] == a2[j-1]) {
                     v1 = Math.max(v1,  1 + memo[i-1][j-1]);

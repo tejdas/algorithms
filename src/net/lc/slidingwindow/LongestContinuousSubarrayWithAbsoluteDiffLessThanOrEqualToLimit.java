@@ -7,7 +7,7 @@ package net.lc.slidingwindow;
 public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
     public int longestSubarray(int[] nums, int limit) {
         int left = 0;
-        int right = 0;
+        int right;
         int maxLen = 1;
 
         int curMax = 0;
@@ -16,17 +16,24 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
             int val = nums[i];
 
             if (val > nums[curMin] && val < nums[curMax]) {
+                // nothing needs to be done
                 right = i;
                 maxLen = Math.max(maxLen, right - left + 1);
             } else if (val == nums[curMax]) {
+                // update curMax to current index. The reason being, we sometimes need to shrink the window from the left.
                 curMax = i;
                 right = i;
                 maxLen = Math.max(maxLen, right - left + 1);
             } else if (val == nums[curMin]) {
+                // update curMin to current index. The reason being, we sometimes need to shrink the window from the left.
                 curMin = i;
                 right = i;
                 maxLen = Math.max(maxLen, right - left + 1);
             } else if (val > nums[curMax]) {
+                /**
+                 * Update curMax. In addition, scan from curMax to the left for as long as the delta between curMax and
+                 * the number is within limit. But, do not slide the left-edge leftwards.
+                 */
                 curMax = i;
                 right = i;
 
@@ -45,6 +52,10 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
                 curMin = curMinIndex;
                 maxLen = Math.max(maxLen, right - left + 1);
             } else { // val < nums[curMin]
+                /**
+                 * Update curMin. In addition, scan from curMin to the left for as long as the delta between curMin and
+                 * the number is within limit. But, do not slide the left-edge leftwards.
+                 */
                 curMin = i;
                 right = i;
 

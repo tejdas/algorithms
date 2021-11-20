@@ -1,8 +1,5 @@
 package net.lc.slidingwindow;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 76
  * Two-pointer
@@ -16,13 +13,9 @@ public class MinimumWindowSubstring {
          * Store the frequency of each char in t
          * char -> frequency
          */
-        Map<Character, Integer> tmap = new HashMap<>();
+        int[] tmap = new int[64];
         for (char c : array) {
-            if (tmap.containsKey(c)) {
-                tmap.put(c, 1 + tmap.get(c));
-            } else {
-                tmap.put(c, 1);
-            }
+            tmap[c - 'A']++;
         }
 
         int minPos = -1;
@@ -34,27 +27,30 @@ public class MinimumWindowSubstring {
         /**
          * Store the chars seen so far in s, that belong to t.
          */
-        Map<Character, Integer> map = new HashMap<>();
+        int[] map = new int[64];
         int missingCount = t.length();
 
         for (int i = 0; i < sarray.length; i++) {
             char c = sarray[i];
 
+            int idx = c - 'A';
+
             if (missingCount > 0) {
                 /**
                  * Haven't found the right-edge of the window yet
                  */
-                if (!tmap.containsKey(c)) {
+                if (tmap[c - 'A'] == 0) {
                     continue;
                 }
 
-                if (map.containsKey(c)) {
-                    if (map.get(c) < tmap.get(c)) {
+
+                if (map[idx] > 0) {
+                    if (map[idx] < tmap[idx]) {
                         missingCount--;
                     }
-                    map.put(c, 1 + map.get(c));
+                    map[idx]++;
                 } else {
-                    map.put(c, 1);
+                    map[idx]++;
                     missingCount--;
                 }
 
@@ -72,10 +68,10 @@ public class MinimumWindowSubstring {
                  * Already found the right-edge of the window. Now, just expand right-edge to the right.
                  */
                 curMax++;
-                if (!tmap.containsKey(c)) {
+                if (tmap[idx] == 0) {
                     continue;
                 }
-                map.put(c, 1 + map.get(c));
+                map[idx]++;
             }
 
             if (missingCount >0) continue;
@@ -88,15 +84,16 @@ public class MinimumWindowSubstring {
             int j;
             for (j = curMin; j < curMax; j++) {
                 char pc = sarray[j];
-                if (map.containsKey(pc)) {
+                int pidx = pc - 'A';
+                if (map[pidx] > 0) {
                     /**
                      * We are at the exact number of letters of pc.
                      * Can't shrink on the left anymore.
                      */
-                    if (map.get(pc) <= tmap.get(pc)) {
+                    if (map[pidx] <= tmap[pidx]) {
                         break;
                     } else {
-                        map.put(pc, map.get(pc)-1);
+                        map[pidx]--;
                     }
                 }
             }

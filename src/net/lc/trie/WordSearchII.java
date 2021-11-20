@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.trie;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class WordSearchII {
     static class TrieNode {
         char c;
         boolean isTerminating = false;
-        private final Map<Character, TrieNode> children = new HashMap<>();
+        private final TrieNode[] children = new TrieNode[26];
 
         public TrieNode(char c) {
             this.c = c;
@@ -34,7 +34,6 @@ public class WordSearchII {
         this.board = board;
         rows = board.length;
         cols = board[0].length;
-        visited = new boolean[rows][cols];
 
         Set<String> wordset = new HashSet<>();
         for (String word : words) wordset.add(word);
@@ -42,7 +41,7 @@ public class WordSearchII {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                resetVisited();
+                visited = new boolean[rows][cols];
                 Stack<Character> stack = new Stack<>();
                 dfs(i, j, root, stack);
             }
@@ -51,26 +50,21 @@ public class WordSearchII {
         return l;
     }
 
-    private void resetVisited() {
-        for (int i = 0; i < rows; i++)
-            Arrays.fill(visited[i], false);
-    }
-
     private final TrieNode root = new TrieNode('-');
 
     private void dfs(int curx, int cury, TrieNode curNode, Stack<Character> stack) {
         visited[curx][cury] = true;
 
         char c = board[curx][cury];
-        stack.push(c);
+        int cindex = c - 'a';
 
-        if (!curNode.children.containsKey(c)) {
-            stack.pop();
+        if (curNode.children[cindex] == null) {
             visited[curx][cury] = false;
             return;
         }
 
-        TrieNode childNode = curNode.children.get(c);
+        stack.push(c);
+        TrieNode childNode = curNode.children[cindex];
 
         if (childNode.isTerminating) {
             StringBuilder sb = new StringBuilder();
@@ -106,10 +100,11 @@ public class WordSearchII {
             return;
         }
         char c = array[pos];
-        if (!curNode.children.containsKey(c)) {
+        int cindex = c - 'a';
+        if (curNode.children[cindex] == null) {
             TrieNode t = new TrieNode(c);
-            curNode.children.put(c, t);
+            curNode.children[cindex] = t;
         }
-        insertIntoTrie(curNode.children.get(c), array, pos+1);
+        insertIntoTrie(curNode.children[cindex], array, pos+1);
     }
 }

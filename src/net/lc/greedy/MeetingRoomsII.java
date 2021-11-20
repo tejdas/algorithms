@@ -25,20 +25,12 @@ class MeetingRoomsII {
 
     private static class CKey implements Comparable<CKey> {
 
-        @Override
-        public String toString() {
-            String str = isBegin ? "begin" : "end";
-            return "CKey [id=" + id + ", time=" + time + ", " + str + "]";
-        }
-
-        public CKey(String id, int time, boolean isBegin) {
+        public CKey(int time, boolean isBegin) {
             super();
-            this.id = id;
             this.time = time;
             this.isBegin = isBegin;
         }
 
-        String id;
         int time;
         boolean isBegin;
 
@@ -56,8 +48,7 @@ class MeetingRoomsII {
                     return 1;
                 }
             }
-            // TODO Auto-generated method stub
-            return id.compareTo(o.id);
+            return 0;
         }
     }
 
@@ -69,12 +60,9 @@ class MeetingRoomsII {
 
         List<CKey> ckeys = new ArrayList<>();
 
-        int idx = 0;
         for (Interval interval : intervals) {
-            String id = String.valueOf(idx);
-            ckeys.add(new CKey(id, interval.start, true));
-            ckeys.add(new CKey(id, interval.end, false));
-            idx++;
+            ckeys.add(new CKey(interval.start, true));
+            ckeys.add(new CKey(interval.end, false));
         }
 
         CKey[] array = ckeys.toArray(new CKey[ckeys.size()]);

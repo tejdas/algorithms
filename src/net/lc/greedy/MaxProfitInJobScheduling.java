@@ -1,4 +1,4 @@
-package net.lc.dp;
+package net.lc.greedy;
 
 import java.util.*;
 
@@ -48,12 +48,18 @@ public class MaxProfitInJobScheduling {
         }
 
         final Job[] jobs = list.toArray(new Job[list.size()]);
+        /**
+         * sort jobs by end time
+         */
         Arrays.sort(jobs);
 
 
         final int[] profits = new int[jobs.length];
         int maxProfit = 0;
 
+        /**
+         * Maintain a sorted set of jobs that have already been picked up, sorted by profit (max at top).
+         */
         SortedSet<Profits> profitSet = new TreeSet<>();
 
         for (int i = 0; i < jobs.length; i++) {
@@ -62,6 +68,9 @@ public class MaxProfitInJobScheduling {
             while (iter.hasNext()) {
                 Profits p = iter.next();
 
+                /**
+                 * Pick up the past job with highest profit and check to see if current job can be started after that.
+                 */
                 if (jobs[i].start >= jobs[p.index].end) {
                     profits[i] = jobs[i].profit + p.profit;
                     break;

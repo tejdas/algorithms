@@ -1,10 +1,12 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.Arrays;
 
 /**
  * 55
  * Array
+ * Greedy
+ * DP
  */
 public class JumpGame {
     public boolean canJump(int[] nums) {
@@ -17,7 +19,10 @@ public class JumpGame {
         Arrays.fill(jumpResult, false);
 
         jumpResult[nums.length-1] = true;
-        int lastIndex = nums.length-1;
+        /**
+         * keep track of lastSeenReachableIndex: jumpResult[lastSeenReachableIndex] = true
+         */
+        int lastSeenReachableIndex = nums.length-1;
 
         for (int index = nums.length-2; index >= 0; index--) {
             int jumpVal = nums[index];
@@ -32,9 +37,12 @@ public class JumpGame {
             /**
              * see if we can use a val between 1 and jumpVal to jump to a location where jumpResult is true.
              */
-            if (jumpVal >= (lastIndex-index)) {
+            if (jumpVal >= (lastSeenReachableIndex-index)) {
                 jumpResult[index] = true;
-                lastIndex = index;
+                /**
+                 * Update lastSeenReachableIndex
+                 */
+                lastSeenReachableIndex = index;
             } else {
                 jumpResult[index] = false;
             }

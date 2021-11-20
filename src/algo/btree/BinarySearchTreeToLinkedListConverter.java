@@ -2,6 +2,9 @@ package algo.btree;
 
 import java.util.Stack;
 
+/**
+ * Leetcode 426
+ */
 public class BinarySearchTreeToLinkedListConverter {
     static TreeNode prevNode = null;
     static TreeNode first = null;
@@ -33,6 +36,39 @@ public class BinarySearchTreeToLinkedListConverter {
         }
     }
 
+    static TreeNode treeToDoublyList(TreeNode root) {
+        prevNode = null;
+        first = null;
+
+        final Stack<TreeNode> stack = new Stack<>();
+        TreeNode curNode = root;
+
+        /*
+         * Go all the way to the left subtree
+         */
+        while (curNode != null) {
+            while (curNode.left != null) {
+                stack.push(curNode);
+                curNode = curNode.left;
+            }
+
+            convertLinks(curNode);
+
+            while ((curNode.right == null) && (!stack.isEmpty())) {
+                curNode = stack.pop();
+
+                convertLinks(curNode);
+            }
+            curNode = curNode.right;
+        }
+
+        if (first != null) {
+            first.left = prevNode;
+            prevNode.right = first;
+        }
+        return first;
+    }
+
     private static void convertLinks(TreeNode curNode) {
         if (first == null) {
             first = curNode;
@@ -53,6 +89,8 @@ public class BinarySearchTreeToLinkedListConverter {
         root = BinarySearchTreeBuilder.buildBSTFromPreOrderList(array);
         root.traverseInOrder();
 
+
+        /*
         convertBSTToDoubleLinkedListNonRecurse(root);
 
         System.out.println();
@@ -69,6 +107,15 @@ public class BinarySearchTreeToLinkedListConverter {
             System.out.print(cur2.value + "   ");
             cur2 = cur2.left;
         }
+        */
+
+        System.out.println();
+        TreeNode root2 = treeToDoublyList(root);
+        TreeNode root3 = root2;
+        do {
+            System.out.print(root2.value + "  ");
+            root2 = root2.right;
+        } while (root2 != root3);
 
     }
 }

@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.binarytree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

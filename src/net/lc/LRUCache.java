@@ -24,6 +24,10 @@ public class LRUCache {
     private final int capacity;
     private int curCapacity = 0;
 
+    /**
+     * Most recently used data (put/get) in tail.
+     * Least recently used data (chosen for eviction) in head.
+     */
     private Node head = null;
     private Node tail = null;
 
@@ -31,6 +35,11 @@ public class LRUCache {
         this.capacity = capacity;
     }
 
+    /**
+     * If key exists, and not already in tail, move it to tail
+     * @param key
+     * @return
+     */
     public int get(int key) {
         if (!map.containsKey(key)) {
             return -1;
@@ -56,6 +65,14 @@ public class LRUCache {
         return map.get(key);
     }
 
+    /**
+     * If key exists, and not already in tail, move it to tail.
+     * Otherwise:
+     * a. Evict head if the capacity is at max.
+     * b. Add key to tail.
+     * @param key
+     * @param value
+     */
     public void put(int key, int value) {
         if (map.containsKey(key)) {
             map.put(key, value);

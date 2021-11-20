@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.binarytree;
 
 /**
  * 236
@@ -40,11 +40,17 @@ public class LowestCommonAncestor {
 
         LCAResult leftRes = lca(curNode.left, targetA, targetB);
         if (leftRes.nodeCount == 2) {
+            /**
+             * Found an LCA in the left-subtree
+             */
             return leftRes;
         }
 
         LCAResult rightRes = lca(curNode.right, targetA, targetB);
         if (rightRes.nodeCount == 2) {
+            /**
+             * Found an LCA in the right-subtree
+             */
             return rightRes;
         }
 
@@ -54,8 +60,9 @@ public class LowestCommonAncestor {
         }
         totalCount += leftRes.nodeCount;
         totalCount += rightRes.nodeCount;
+        boolean isCurNodeLCA = (totalCount == 2);
 
-        return new LCAResult(totalCount, (totalCount == 2)? curNode : null);
+        return new LCAResult(totalCount, isCurNodeLCA? curNode : null);
     }
 
     public TreeNode lowestCommonAncestor(final TreeNode curNode, final TreeNode targetA, final TreeNode targetB) {

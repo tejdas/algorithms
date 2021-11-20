@@ -1,5 +1,7 @@
 package net.lc;
 
+import java.util.Arrays;
+
 /**
  * 416
  * Dynamic Programming
@@ -23,12 +25,10 @@ public class PartitionEqualSubsetSum {
     private boolean findSum(int[] array, int targetSum) {
         res = new int[array.length][targetSum+1];
         for (int i = 0; i < res.length; i++) {
-            for (int j = 0; j < res[i].length; j++) {
-                res[i][j] = -1;
-            }
+            Arrays.fill(res[i], -1);
         }
 
-        return (findSumRecurse(array, 0, targetSum) == 1);
+        return (findSumRecurse(array, 0, targetSum)==1);
     }
 
     private int findSumRecurse(int[] array, int index, int targetSum) {

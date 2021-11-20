@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * 279
  * Dynamic Programming
+ * Recursion
  */
 public class PerfectSquares {
     Map<Integer, Integer> memoized = new HashMap<>();
@@ -32,12 +33,6 @@ public class PerfectSquares {
             int val = i*i;
 
             if (val > n) continue;
-
-            if (i == n) {
-                memoized.put(n, 1);
-                return 1;
-            }
-
 
             int divres = n / val;
             int remainder = n % val;

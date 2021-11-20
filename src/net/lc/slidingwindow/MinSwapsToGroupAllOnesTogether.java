@@ -45,31 +45,6 @@ public class MinSwapsToGroupAllOnesTogether {
         return (countOnes - maxNumOnes);
     }
 
-    public int minSwaps2(int[] data) {
-        int countOnes = 0;
-        for (int val : data) {
-            if (val == 1) countOnes++;
-        }
-
-        if (countOnes <= 1) return 0;
-
-        int numOnesInWindow = 0;
-        for (int i = 0; i < countOnes; i++) {
-            if (data[i] == 1) numOnesInWindow++;
-        }
-
-        int maxNumOnes = numOnesInWindow;
-
-        for (int i = countOnes; i < data.length; i++) {
-            if (data[i-countOnes] == 1) numOnesInWindow--;
-            if (data[i] == 1) numOnesInWindow++;
-
-            maxNumOnes = Math.max(maxNumOnes, numOnesInWindow);
-        }
-
-        return (countOnes - maxNumOnes);
-    }
-
     public static void main(String[] args) {
         {
             int[] data = { 1, 0, 1, 0, 1 };

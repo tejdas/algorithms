@@ -9,11 +9,14 @@ import java.util.Arrays;
  */
 public class MinCostTreeFromLeafValues {
     private int[][] memoized;
+    private int[][] maxMemo;
     public int mctFromLeafValues(int[] arr) {
         if (arr == null || arr.length == 0) return 0;
         memoized = new int[arr.length][arr.length];
+        maxMemo = new int[arr.length][arr.length];
         for (int i = 0; i < memoized.length; i++) {
             Arrays.fill(memoized[i], -1);
+            Arrays.fill(maxMemo[i], -1);
         }
         return buildTree(arr, 0, arr.length-1);
     }
@@ -48,10 +51,12 @@ public class MinCostTreeFromLeafValues {
     }
 
     private int findMax(int[] array, int m, int n) {
+        if (maxMemo[m][n] != -1) return maxMemo[m][n];
         int maxVal = Integer.MIN_VALUE;
         for (int i = m; i <= n; i++) {
             maxVal = Math.max(maxVal, array[i]);
         }
+        maxMemo[m][n] = maxVal;
         return maxVal;
     }
 }

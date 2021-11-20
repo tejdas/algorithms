@@ -18,6 +18,7 @@ public class DistinctSubsequences {
 
         /**
          * Two-dimensional DP
+         * memo[is][jt] = number of distinct subsequences of t(0:jt) in s(0:is)
          */
         int[][] memo = new int[sarray.length][tarray.length];
 
@@ -29,6 +30,11 @@ public class DistinctSubsequences {
         }
 
         if (sarray[0] == tarray[0]) memo[0][0] = 1;
+
+        /**
+         * if sarray[i] == tarray[j], then
+         * memo[i][j] = SUM memo[k][j-1] for all k between 0 and i-1
+         */
 
         for (int i = 1; i < sarray.length; i++) {
             char c = sarray[i];
