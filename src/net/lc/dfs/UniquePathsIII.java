@@ -64,6 +64,6 @@ public class UniquePathsIII {
             }
         }
 
-        visited[curx][cury] = false;
+        visited[curx][cury] = false; // enable all-paths traversal
     }
 }

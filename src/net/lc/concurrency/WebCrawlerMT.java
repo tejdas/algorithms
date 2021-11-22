@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
  */
 class WebCrawlerMT {
     interface HtmlParser {
-        public List<String> getUrls(String url);
+        List<String> getUrls(String url);
     }
 
     private String hostname(String url) {

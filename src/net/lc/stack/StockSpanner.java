@@ -32,7 +32,7 @@ public class StockSpanner {
         int span;
         curPos++;
         while (!posStack.isEmpty() && price >= posStack.peek().stock) {
-            PosPair popped = posStack.pop();
+            posStack.pop();
         }
 
         if (posStack.isEmpty()) {

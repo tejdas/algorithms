@@ -4,11 +4,12 @@ import java.util.List;
 
 /**
  * 364
+ * 339
  * Recursion
  */
 public class NestedListWeightSum {
     interface NestedInteger {
-        //=onstructor initializes an empty nested list
+        //=cnstructor initializes an empty nested list
 
 
 
@@ -36,7 +37,7 @@ public class NestedListWeightSum {
         int depth = findDepth(nestedList);
         //System.out.println(depth);
 
-        return getSum(nestedList, depth, 0);
+        return getSumInverse(nestedList, depth, 0);
     }
 
     private int findDepth(List<NestedInteger> niList) {
@@ -49,13 +50,29 @@ public class NestedListWeightSum {
         return depth;
     }
 
-    private int getSum(List<NestedInteger> list, int depth, int level) {
+    private int getSumInverse(List<NestedInteger> list, int depth, int curLevel) {
         int sum = 0;
         for (NestedInteger ni : list) {
             if (ni.isInteger())
-                sum += ni.getInteger() * (depth - level);
+                sum += ni.getInteger() * (depth - curLevel);
             else {
-                sum += getSum(ni.getList(), depth, level + 1);
+                sum += getSumInverse(ni.getList(), depth, curLevel + 1);
+            }
+        }
+        return sum;
+    }
+
+    public int depthSum(List<NestedInteger> nestedList) {
+        return getSum(nestedList, 1);
+    }
+
+    private int getSum(List<NestedInteger> list, int curLevel) {
+        int sum = 0;
+        for (NestedInteger ni : list) {
+            if (ni.isInteger())
+                sum += ni.getInteger() * curLevel;
+            else {
+                sum += getSum(ni.getList(), curLevel + 1);
             }
         }
         return sum;

@@ -15,6 +15,11 @@ public class OneEditDistance {
                 if (foundDifferentCharacter) {
                     return false;
                 } else {
+                    /**
+                     * found one diff character. Record the fact.
+                     * Afterwards, there should not be any difference. If there is,
+                     * then return false
+                     */
                     foundDifferentCharacter = true;
                 }
             }
@@ -43,6 +48,11 @@ public class OneEditDistance {
                 if (foundDifferentCharacter) {
                     return false;
                 } else {
+                    /**
+                     * found one diff character. Record the fact. Now advance the longer string iter.
+                     * Afterwards, there should not be any difference. If there is,
+                     * then return false
+                     */
                     foundDifferentCharacter = true;
                     iter1++;
                 }

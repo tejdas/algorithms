@@ -1,40 +1,45 @@
 package net.lc;
 
-import java.util.Arrays;
-
 /**
  * Design
  * 362
  */
 public class HitCounter {
-    private final int[] hitstore = new int[300];
-    private final int[] lastHitMin = new int[300];
-    /** Initialize your data structure here. */
+    static class HitCountInfo {
+        int count;
+        int second;
+    }
+
+    private final HitCountInfo[] hitstore = new HitCountInfo[300];
+
     public HitCounter() {
-        Arrays.fill(hitstore, 0);
-        Arrays.fill(lastHitMin, 0);
     }
 
     /**
      * Record a hit.
-     * lastHitMin stores the last minute in which the hitcount is being stored.
+     * lastHitSec stores the last second in which the hitcount is being stored.
      * For example, on index 10, it will store hits for mins:
      * 10
      * 310
      * 610 etc.
-     * If the last minute matches with timestamp, keep adding to count. If not, it means
+     * If the last second matches with timestamp, keep adding to count. If not, it means
      * we have gone past 5 mins. Therefore, store the new timestamp, and reset count to 1.
      * @param timestamp
      */
     public void hit(int timestamp) {
         int timestampMod = timestamp % 300;
-        int lastHitIndex = lastHitMin[timestampMod];
-
-        if (lastHitIndex != timestamp) {
-            hitstore[timestampMod] = 1;
-            lastHitMin[timestampMod] = timestamp;
+        HitCountInfo info = hitstore[timestampMod];
+        if (info == null) {
+            hitstore[timestampMod] = new HitCountInfo();
+            hitstore[timestampMod].count = 1;
+            hitstore[timestampMod].second = timestamp;
         } else {
-            hitstore[timestampMod]++;
+            if (info.second == timestamp) {
+                info.count++;
+            } else {
+                info.second = timestamp;
+                info.count = 1;
+            }
         }
     }
 
@@ -45,8 +50,9 @@ public class HitCounter {
 
         for (int t = timestamp; t > timestamp-300 && t >= 0; t--) {
             int mod = t % 300;
-            if (lastHitMin[mod] == t) {
-                sum += hitstore[mod];
+            HitCountInfo info = hitstore[mod];
+            if (info != null && info.second == t) {
+                sum += info.count;
             }
         }
         return sum;

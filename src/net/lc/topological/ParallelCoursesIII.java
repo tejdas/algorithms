@@ -59,6 +59,9 @@ public class ParallelCoursesIII {
 
         int result = 0;
 
+        /**
+         * traverse the jobs in topological order. Use greedy approach to compute latest completion time.
+         */
         for (int i = 0; i < topoList.size(); i++) {
             int cur = topoList.get(i);
             List<Integer> succs = successors[cur];
