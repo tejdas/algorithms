@@ -2,10 +2,21 @@ package net.lc.greedy;
 
 /**
  * 1578
+ * Return the minimum cost of deletions such that there are no two identical letters next to each other.
  * https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/submissions/
  * Greedy
  */
 public class MinimumDeletionCostToAvoidRepeatingChars {
+    /**
+     * Whenever we get a series of repeating chars, we need to remove all but one.
+     * Keep track of the runningSum + the max cost of one char deletion.
+     * The cost will then be: runningSum - maxSingleCharCost
+     * Do this for all repeating series of chars.
+     *
+     * @param s
+     * @param cost
+     * @return
+     */
     public int minCost(String s, int[] cost) {
         char[] array = s.toCharArray();
 

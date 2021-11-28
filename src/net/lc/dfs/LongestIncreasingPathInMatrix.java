@@ -6,7 +6,9 @@ import java.util.List;
 /**
  * 329
  * https://leetcode.com/problems/longest-increasing-path-in-a-matrix/submissions/
+ * DFS Post-Order: compute longest path from curNode as 1 + max(longestPathFromAdjacentNodes)
  * DFS All-path traversal
+ * Memoization of results
  */
 public class LongestIncreasingPathInMatrix {
     static class Pos {

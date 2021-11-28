@@ -65,6 +65,8 @@ public class BinaryTreeCamera {
             dfs(cur.iright, cur);
         }
 
+        // post-order
+
         boolean allchildrenCovered = true;
         boolean cameraAtChild = false;
 
@@ -85,6 +87,10 @@ public class BinaryTreeCamera {
         }
 
         if (!allchildrenCovered) {
+            /**
+             * if at-least one child is not covered, then put a camera at curNode.
+             * Add parent and both children as covered.
+             */
             cameraLocation.add(cur.index);
             coveredNodes.add(cur.index);
             if (par != null)
@@ -98,6 +104,9 @@ public class BinaryTreeCamera {
             if (coveredNodes.contains(cur.index)) {
                 return;
             }
+
+            // all children covered. Don't bother putting a camera in curNode unless it is the root Node.
+            // reason being, otherwise the camera could be installed on parent node.
 
             if (!cameraAtChild && par == null) {
                 cameraLocation.add(cur.index);

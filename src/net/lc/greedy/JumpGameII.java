@@ -6,6 +6,15 @@ package net.lc.greedy;
  * Two-pointer
  */
 public class JumpGameII {
+    /**
+     * This is NOT a DP problem, even though the description might have us believe it
+     * (minimum number of jumps to reach the last position).
+     * It's a 2-pointer, Greedy problem.
+     *
+     * (similar to MinTapsToWaterGarden)
+     * @param nums
+     * @return
+     */
     public int jump(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         if (nums[0] == 0) return 0;

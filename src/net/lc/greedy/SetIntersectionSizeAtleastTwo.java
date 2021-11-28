@@ -63,11 +63,11 @@ public class SetIntersectionSizeAtleastTwo {
         while (!pq.isEmpty()) {
             intv = pq.poll();
 
-            /**
-             * New interval begins after cur, so no overlap.
-             * Add last two numbers.
-             */
             if (intv.begin > cur) {
+                /**
+                 * New interval begins after cur, so no overlap.
+                 * Add last two numbers.
+                 */
                 result.add(intv.end-1);
                 result.add(intv.end);
 

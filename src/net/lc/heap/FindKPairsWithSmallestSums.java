@@ -59,7 +59,8 @@ public class FindKPairsWithSmallestSums {
     /**
      * First add upto k numbers of array1, paired with array2[0] to PriorityQueue
      * Then, as you remove and process the head of the PQ (smallest pair) of {index1, index2}
-     * add {index1, index2+1} to PQ.
+     * add {index1, index2+1} to PQ. In other words, replace the head of the PQ with the current index of array1
+     * and next index of array2.
      *
      * @param k
      */

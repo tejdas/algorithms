@@ -39,9 +39,9 @@ public class MinimumInitialEnergyToFinishTasks {
                  * Add it to minimumInitialEnergy.
                  * Recompute residual energy.
                  */
-                int toAdd = task[1] - residual;
-                minimumInitialEnergy += toAdd;
-                residual = residual + toAdd - task[0];
+                int energyToAdd = task[1] - residual;
+                minimumInitialEnergy += energyToAdd;
+                residual += energyToAdd - task[0];
             } else {
                 /**
                  * Residual energy is enough to do the task.

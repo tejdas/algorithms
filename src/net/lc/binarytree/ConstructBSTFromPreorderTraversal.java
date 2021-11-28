@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * 1008
  * Stack
- * Binary Tree
+ * Binary Search Tree
  */
 public class ConstructBSTFromPreorderTraversal {
     static class TreeNode {
@@ -27,6 +27,13 @@ public class ConstructBSTFromPreorderTraversal {
         }
     }
 
+    /**
+     * Since it is a BST, we do not need an inorder.
+     * The sort order is inorder.
+     * Use a stack to construct the BST.
+     * @param preorder
+     * @return
+     */
     public TreeNode bstFromPreorder(int[] preorder) {
         if (preorder.length == 0) return null;
 
@@ -43,12 +50,19 @@ public class ConstructBSTFromPreorderTraversal {
             }
 
             if (curval < stack.peek().val) {
+                // smaller values go left
                 stack.peek().left = node;
                 stack.push(node);
                 continue;
             }
 
             TreeNode lastPopped = null;
+            /**
+             * Returning from left subtrees where right-subtree is null
+             * OR
+             * Returning from the rightmost node of the left-subtree and popping the current node as well,
+             * so that we can start a right-side traversal.
+             */
             while (!stack.isEmpty() && curval > stack.peek().val) {
                 lastPopped = stack.pop();
             }

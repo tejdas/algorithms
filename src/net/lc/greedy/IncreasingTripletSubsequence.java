@@ -1,7 +1,8 @@
-package net.lc;
+package net.lc.greedy;
 
 /**
  * 334
+ * Greedy
  */
 public class IncreasingTripletSubsequence {
     public boolean increasingTriplet(int[] nums) {

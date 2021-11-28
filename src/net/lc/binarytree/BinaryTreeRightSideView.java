@@ -21,6 +21,14 @@ public class BinaryTreeRightSideView {
         }
     }
 
+    /**
+     * Level-order (BFS) traversal
+     * Keep track of rightMostNode
+     * When the curNode becomes rightMostNode, print it, and set it to null
+     * When rightMostNode is set to null, mark the next child node (in the below-level) as rightMostNode.
+     * @param root
+     * @return
+     */
     public List<Integer> rightSideView(TreeNode root) {
 
         List<Integer> rightmostNodes = new ArrayList<>();

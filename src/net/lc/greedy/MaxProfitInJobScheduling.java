@@ -53,12 +53,19 @@ public class MaxProfitInJobScheduling {
          */
         Arrays.sort(jobs);
 
-
+        /**
+         * maxProfit at job[i]: DP memoization
+         */
         final int[] profits = new int[jobs.length];
         int maxProfit = 0;
 
         /**
          * Maintain a sorted set of jobs that have already been picked up, sorted by profit (max at top).
+         * Initially, it was a m*n iteration, where for the current job, we used to check which of the earlier
+         * jobs picked (between 0 and i-1) gave the max profit, and choose that.
+         *
+         * But we improved on that, and now storing the past results in a sorted set, so that we will always choose
+         * the job ending max profit.
          */
         SortedSet<Profits> profitSet = new TreeSet<>();
 

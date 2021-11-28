@@ -38,23 +38,24 @@ public class KthSmallestInSortedMatrix {
         boolean[][] processed = new boolean[matrix.length][matrix.length];
         PriorityQueue<Cell> pq = new PriorityQueue<>();
         pq.add(new Cell(row, col, matrix[row][col]));
-        processed[row][col] = true;
 
         int count = 0;
         while (!pq.isEmpty()) {
             Cell cur = pq.remove();
+
+            if (processed[cur.x][cur.y]) continue;
+            processed[cur.x][cur.y] = true;
+
             int val = cur.val;
             count++;
             if (count == k) return val;
 
             if (cur.x+1 < matrix.length && !processed[cur.x+1][cur.y]) {
                 pq.add(new Cell(cur.x+1, cur.y, matrix[cur.x+1][cur.y]));
-                processed[cur.x+1][cur.y] = true;
             }
 
             if (cur.y+1 < matrix.length && !processed[cur.x][cur.y+1]) {
                 pq.add(new Cell(cur.x, cur.y+1, matrix[cur.x][cur.y+1]));
-                processed[cur.x][cur.y+1] = true;
             }
         }
         return 0;

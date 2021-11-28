@@ -44,11 +44,15 @@ public class UniquePathsIII {
         return result;
     }
 
-    private void dfs(int curx, int cury, int depth) {
+    private void dfs(int curx, int cury, int squaresVisited) {
 
         visited[curx][cury] = true;
         if (curx == endx && cury == endy) {
-            if (depth == numSquares) {
+            if (squaresVisited == numSquares) {
+                /**
+                 * this means that we have visited all the squares exactly once.
+                 * Count as a valid result.
+                 */
                 result++;
             }
         } else {
@@ -58,7 +62,7 @@ public class UniquePathsIII {
                     int ny = cury + n[1];
 
                     if (grid[nx][ny] != -1 && !visited[nx][ny]) {
-                        dfs(nx, ny, depth + 1);
+                        dfs(nx, ny, squaresVisited + 1);
                     }
                 }
             }

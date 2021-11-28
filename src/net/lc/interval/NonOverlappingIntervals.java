@@ -46,7 +46,8 @@ public class NonOverlappingIntervals {
             Interval cur = list[i];
             if (cur.beginTime < prev.endTime) {
                 /**
-                 * overlaps with prev interval, so need to be removed.
+                 * overlaps with prev interval, so cur interval need to be removed.
+                 * DO not move prev interval
                  */
                 result++;
             } else {

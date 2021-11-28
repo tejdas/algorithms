@@ -6,6 +6,16 @@ package net.lc.greedy;
  * Two-pointer
  */
 public class ContainerWithMostWater {
+    /**
+     * The idea here is: higher walls retain more water.
+     * Also the more distance between the walls, the more water.
+     * Take a greedy approach.
+     * Pick the two farthest walls (max distance).
+     * Then keep on moving towards each other (shrinking distance)
+     * while always moving past (ignoring) smaller wall, (and pick up the higher wall).
+     * @param height
+     * @return
+     */
     public int maxArea(int[] height) {
         int i = 0;
         int j = height.length-1;

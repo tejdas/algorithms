@@ -6,6 +6,12 @@ import java.util.List;
 
 /**
  * 366
+ * Iterative + Recursive
+ * Iterate and sweep all the leaves recursively, and set their parent's child pointer to null.
+ * Iterate again and sweep the newly created leaves, and so on.
+ * NOTE:
+ * When a node becomes a leaf because both its left and right child become null, do not pick it up right away.
+ * It will be picked up during next iteration.
  */
 public class FindLeavesOfBinaryTree {
     static class TreeNode {
@@ -42,15 +48,15 @@ public class FindLeavesOfBinaryTree {
      */
     private boolean traverse(TreeNode cur, List<Integer> list) {
         if (cur.left == null && cur.right == null) {
-            list.add(cur.val);
             return true;
         }
 
         if (cur.left != null) {
             if (traverse(cur.left, list)) {
                 /**
-                 * cur.left was a leaf, so set to null
+                 * cur.left was a leaf, so collect it, and set to null
                  */
+                list.add(cur.left.val);
                 cur.left = null;
             }
         }
@@ -58,11 +64,16 @@ public class FindLeavesOfBinaryTree {
         if (cur.right != null) {
             if (traverse(cur.right, list)) {
                 /**
-                 * cur.right was a leaf, so set to null
+                 * cur.right was a leaf, so collect it, and set to null
                  */
+                list.add(cur.right.val);
                 cur.right = null;
             }
         }
+        /**
+         * The curNode may have been turned to leaf, if their left and right traversal have returned true.
+         * But do not not return true yet, because it will be picked up in the next iteration.
+         */
         return false;
     }
 

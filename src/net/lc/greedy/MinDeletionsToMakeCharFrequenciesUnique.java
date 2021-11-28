@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.Comparator;
 import java.util.SortedMap;
@@ -43,6 +43,7 @@ public class MinDeletionsToMakeCharFrequenciesUnique {
             //System.out.println("key: " + key + "   value: " + val);
 
             if (val == 1) {
+                // only one occurrence of key, nothing can be done
                 continue;
             }
 

@@ -35,9 +35,9 @@ public class JumpGame {
             }
 
             /**
-             * see if we can use a val between 1 and jumpVal to jump to a location where jumpResult is true.
+             * see if we can use jumpVal to reach (or go past) lastSeenReachableIndex
              */
-            if (jumpVal >= (lastSeenReachableIndex-index)) {
+            if ((jumpVal + index) >= lastSeenReachableIndex) {
                 jumpResult[index] = true;
                 /**
                  * Update lastSeenReachableIndex

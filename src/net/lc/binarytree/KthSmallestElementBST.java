@@ -4,6 +4,7 @@ import java.util.Stack;
 
 /**
  * 230
+ * Stack
  */
 public class KthSmallestElementBST {
     static class TreeNode {
@@ -48,6 +49,13 @@ public class KthSmallestElementBST {
         return curNode.val;
     }
 
+    /**
+     * Start from a dummy-node and make the rootNode the right child of dummy node.
+     * Helps in stack-based iteration.
+     * @param root
+     * @param k
+     * @return
+     */
     public int kthSmallest(TreeNode root, int k) {
         stack.clear();
         curNode = new TreeNode(-1);

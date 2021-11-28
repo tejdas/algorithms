@@ -21,20 +21,16 @@ public class WordLadder {
     }
 
     private int convertWord(final String from, final String to) {
-        final Set<String> visited = new HashSet<>();
 
-        /**
-         * Map of toNode -> FromNode
-         */
         final Map<String, String> edgeTo = new HashMap<>();
+        edgeTo.put(from, null);
 
-        visited.add(from);
+        final Queue<String> queue = new LinkedList<>();
+        queue.add(from);
 
-        final Queue<String> nodes = new LinkedList<>();
-        nodes.add(from);
-
-        while (!nodes.isEmpty()) {
-            final String curNode = nodes.remove();
+        while (!queue.isEmpty()) {
+            final String curNode = queue.remove();
+            System.out.println(curNode);
 
             final char[] array = curNode.toCharArray();
 
@@ -46,17 +42,15 @@ public class WordLadder {
                         array[i] = d;
                         final String word = new String(array);
                         if (isValidWord(word)) {
-                            if (word.equalsIgnoreCase(to)) {
-                                //System.out.println("found: " + to);
+
+                            if (!edgeTo.containsKey(word)) {
                                 edgeTo.put(word,  curNode);
 
-                                return printPath(edgeTo, word);
-                            }
-
-                            if (!visited.contains(word)) {
-                                visited.add(word);
-                                nodes.add(word);
-                                edgeTo.put(word, curNode);
+                                if (word.equalsIgnoreCase(to)) {
+                                    return printPath(edgeTo, word);
+                                } else {
+                                    queue.add(word);
+                                }
                             }
                         }
                     }
@@ -80,5 +74,10 @@ public class WordLadder {
             temp = fromTemp;
         }
         return length;
+    }
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hot","dog","dot");
+        System.out.println(new WordLadder().ladderLength("hot", "dog", words));
     }
 }

@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,6 +7,8 @@ import java.util.Map;
 /**
  * https://leetcode.com/problems/cinema-seat-allocation/submissions/
  * Bit-manipulation
+ * Greedy
+ * 1386
  */
 public class CinemaSeatAllocation {
     public int maxNumberOfFamilies(int n, int[][] reservedSeats) {

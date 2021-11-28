@@ -1,4 +1,4 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +20,16 @@ public class MaximumSwap {
         System.arraycopy(orig, 0, sorted, 0, orig.length);
 
         Arrays.sort(sorted, Collections.reverseOrder());
+
+        /**
+         * Tokenize the number into an array: orig
+         * Sort the array (max first):  sorted
+         * sorted is the absolute max we can get
+         * if orig == sorted, nothing to be done
+         * Else, scan right from pos 0 until we get an index
+         * where the value is not where it needs to be (in sorted array).
+         * Try to swap the element with the one
+         */
 
         int index;
         for (index = 0; index < orig.length-1; index++) {
@@ -73,5 +83,9 @@ public class MaximumSwap {
             sum = sum * 10 + array[index];
         }
         return sum;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new MaximumSwap().maximumSwap(2736));
     }
 }

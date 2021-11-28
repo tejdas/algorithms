@@ -88,13 +88,16 @@ public class ShortestEdgeInShortestPath {
             }
         }
 
-        dfs(source, 0, Integer.MAX_VALUE);
+        int curDistance = 0;
+        int minSoFar = Integer.MAX_VALUE;
+        dfs(source, curDistance, minSoFar);
 
         return minEdge;
     }
 
     /**
      * All-path DFS
+     * Keep track of minSoFar in the call-stack.
      * @param cur
      * @param curDistance
      * @param minSoFar
@@ -116,7 +119,7 @@ public class ShortestEdgeInShortestPath {
              */
             int to = e.to;
             if (!visited[to] && (curDistance + e.weight == minDistance[to])) {
-                dfs(to, curDistance + e.weight, Math.min(minSoFar, e.weight));
+                dfs(to, minDistance[to], Math.min(minSoFar, e.weight));
             }
         }
         visited[cur] = false; // enable all-path traversal.

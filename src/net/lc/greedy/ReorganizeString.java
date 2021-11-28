@@ -70,7 +70,7 @@ public class ReorganizeString {
             sb.append(nextToAdd.c);
             return sb.toString();
         } else {
-            // the
+            // we are left with one character with frequency > 1, so string construction not possible
             return "";
         }
     }

@@ -1,7 +1,8 @@
-package net.lc;
+package net.lc.greedy;
 
 /**
  * 581
+ * Greedy
  */
 public class ShortestUnsortedContinuousSubarray {
     public int findUnsortedSubarray(int[] a) {

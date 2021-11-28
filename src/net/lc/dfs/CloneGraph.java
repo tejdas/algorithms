@@ -8,12 +8,13 @@ import java.util.*;
  */
 public class CloneGraph {
 
+    /**
+     * Use a Map<Integer,UndirectedGraphNode> for the cloned-graph.
+     */
     Map<Integer, UndirectedGraphNode> map = new HashMap<>();
     Set<Integer> visited = new HashSet<>();
     /**
-     * Use a Map<Integer,RandomListNode> for the cloned-graph.
      * Traverse DFS on the original graph, and cloned-graph simultaneously.
-     *
      * @param node
      * @return
      */

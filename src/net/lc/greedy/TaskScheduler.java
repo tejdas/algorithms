@@ -77,9 +77,9 @@ public class TaskScheduler {
             }
 
             /**
-             * Tasks are parked in the queue in the order in which they were executed. So, check to see if the head of the queue
-             * is ready to execute again (its future execute time is already up). If so, remove from parked queue, and put it back
-             * in PQ.
+             * Tasks are parked in the queue in the order in which they were executed.
+             * Which means, they are already in the order of futureExecTime.
+             * So, check to see how many parked tasks are ready to execute, and put in back in PQ.
              */
             while (!parkedTaskList.isEmpty()) {
                 if (parkedTaskList.peek().futureExecTime <= timeTaken) {

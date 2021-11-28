@@ -1,12 +1,14 @@
-package net.lc;
+package net.lc.greedy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 1414
  * https://leetcode.com/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k/submissions/
  * Binary-search
+ * Greedy
  */
 public class MinFibonacciNumsSumToK {
     public int findMinFibonacciNumbers(int k) {
@@ -37,6 +39,13 @@ public class MinFibonacciNumsSumToK {
         return count;
     }
 
+    /**
+     * Find a number in the sorted array that is less than or equal to num
+     * BInarySearch
+     * @param fibs
+     * @param num
+     * @return
+     */
     private int findFibLessThanOrEq(Integer[] fibs, int num) {
         int left = 0;
         int right = fibs.length-1;
@@ -68,6 +77,6 @@ public class MinFibonacciNumsSumToK {
     }
 
     public static void main(String[] args) {
-        new MinFibonacciNumsSumToK().findMinFibonacciNumbers(5);
+        new MinFibonacciNumsSumToK().findMinFibonacciNumbers(19);
     }
 }

@@ -1,7 +1,8 @@
-package net.lc.string;
+package net.lc.greedy;
 
 /**
  * Stack-like algorithm
+ * Greedy
  * 1541
  */
 public class MinimumInsertionsToBalanceParens {

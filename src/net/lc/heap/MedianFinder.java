@@ -10,11 +10,11 @@ import java.util.PriorityQueue;
  */
 public class MedianFinder {
     /**
-     * Stores top-half of numbers, with smallest at the top
+     * Stores largest-half of numbers, with smallest at the top
      */
     private final PriorityQueue<Integer> maxHeap = new PriorityQueue<>();
     /**
-     * Stores bottom-half of numbers, with largest at the top
+     * Stores smallest-half of numbers, with largest at the top
      */
     private final PriorityQueue<Integer> minHeap = new PriorityQueue<>(Collections.reverseOrder());
 

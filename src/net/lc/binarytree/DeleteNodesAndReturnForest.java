@@ -76,7 +76,13 @@ public class DeleteNodesAndReturnForest {
 
         while (!stack.isEmpty()) {
             TreeInfo treeInfo = stack.pop();
-
+            /**
+             * TreeInfo is being deleted. So, it's left-child  and right child become root of a forest.
+             * So add those to result.
+             * Also, if the TreeInfo is left-child of its parent, set the TreeInfo's parent's left-child to null.
+             * OR
+             * if the TreeInfo is right-child of its parent, set the TreeInfo's parent's right-child to null.
+             */
             if (treeInfo.cur.left != null) {
                 result.add(treeInfo.cur.left);
             }
@@ -95,6 +101,7 @@ public class DeleteNodesAndReturnForest {
                 }
             }
         }
+
         if (!rootDeleted)
             result.add(root);
         return result;
