@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * 735
- * Stack
+ * Monotonic Stack
  */
 public class AsteroidCollision {
     public int[] asteroidCollision(int[] asteroids) {

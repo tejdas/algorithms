@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * 503
- * Stack
+ * Monotonic Stack
  */
 public class NextGreaterElement {
     static class SPair {

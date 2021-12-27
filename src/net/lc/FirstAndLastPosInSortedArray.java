@@ -2,6 +2,9 @@ package net.lc;
 
 import java.util.Arrays;
 
+/**
+ * 34
+ */
 public class FirstAndLastPosInSortedArray {
     public int[] searchRange(int[] nums, int target) {
         int index = Arrays.binarySearch(nums, target);
@@ -11,6 +14,9 @@ public class FirstAndLastPosInSortedArray {
         } else {
             int[] output = new int[2];
 
+            /**
+             * Binary search between 0 and index for the first occurrence of target
+             */
             int lo = 0;
             int hi = index;
 
@@ -25,6 +31,9 @@ public class FirstAndLastPosInSortedArray {
             }
             output[0] = lo;
 
+            /**
+             * Binary search between index and len-1 for the last occurrence of target
+             */
             lo = index;
             hi = nums.length-1;
 

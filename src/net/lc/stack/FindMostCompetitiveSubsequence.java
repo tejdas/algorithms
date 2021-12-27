@@ -6,7 +6,7 @@ import java.util.Stack;
 /**
  * https://leetcode.com/problems/find-the-most-competitive-subsequence/
  * 1673
- * Stack
+ * Monotonic Stack
  */
 public class FindMostCompetitiveSubsequence {
     public int[] mostCompetitive(int[] nums, int k) {

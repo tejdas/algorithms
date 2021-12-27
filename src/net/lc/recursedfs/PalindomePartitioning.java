@@ -14,7 +14,7 @@ public class PalindomePartitioning {
     /**
      * memoMap[x][y]
      * -1 // not computed
-     * 1 // palindrome
+     * 1 // substring(x,y) is palindrome
      * 0 // not palindrome
      */
     private int[][] memoMap;
@@ -46,6 +46,11 @@ public class PalindomePartitioning {
             for (String val : stack) l.add(val);
             result.add(l);
         }
+        /**
+         * consider every prefix and check if it is a palindrome.
+         * If yes, then recursively check if the remainder of the string
+         * can be broken into palindromes.
+         */
         for (int index = startIndex; index < array.length; index++) {
             if (isPalindrome(startIndex, index)) {
                 stack.push(s.substring(startIndex, index+1));

@@ -23,6 +23,11 @@ class QueenPlacer {
             return;
         }
 
+        /**
+         * Queen i is placed in row i and column: array[i]
+         * For each columnIndex, consider whether the current queenIndex can be placed
+         * without being attacked.
+         */
         for (int columnIndex = 0; columnIndex < array.length; columnIndex++) {
             if (array[columnIndex] == -1) {
                 array[columnIndex] = queenIndex;
@@ -39,6 +44,7 @@ class QueenPlacer {
                     final int nextQueen = queenIndex + 1;
                     placeQueen(nextQueen, array);
                 }
+                // reset at the end
                 array[columnIndex] = -1;
             }
         }

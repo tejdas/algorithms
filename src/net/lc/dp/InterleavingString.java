@@ -68,13 +68,15 @@ public class InterleavingString {
         for (int i = 0; i < s3Array.length; i++) {
             result.put(i, new HashSet<>());
 
+            Set<SPair> curset = result.get(i);
+
             if (i == 0) {
                 if (s3Array[0] == s1Array[0]) {
-                    result.get(i).add(new SPair(0, -1));
+                    curset.add(new SPair(0, -1));
                 }
 
                 if (s3Array[0] == s2Array[0]) {
-                    result.get(i).add(new SPair(-1, 0));
+                    curset.add(new SPair(-1, 0));
                 }
             } else {
                 Set<SPair> prevset = result.get(i-1);
@@ -89,13 +91,13 @@ public class InterleavingString {
 
                     if (p1+1 < s1Array.length) {
                         if (s3Array[i] == s1Array[p1 + 1]) {
-                            result.get(i).add(new SPair(p1 + 1, p2));
+                            curset.add(new SPair(p1 + 1, p2));
                         }
                     }
 
                     if (p2+1 < s2Array.length) {
                         if (s3Array[i] == s2Array[p2 + 1]) {
-                            result.get(i).add(new SPair(p1, p2 + 1));
+                            curset.add(new SPair(p1, p2 + 1));
                         }
                     }
                 }

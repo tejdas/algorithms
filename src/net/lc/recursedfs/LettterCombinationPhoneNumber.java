@@ -6,6 +6,7 @@ import java.util.*;
  * 17
  * DFS
  * Recursion
+ * positional combination
  */
 public class LettterCombinationPhoneNumber {
     private final List<String> result = new ArrayList<>();

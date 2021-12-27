@@ -5,7 +5,8 @@ import java.util.Stack;
 /**
  * https://leetcode.com/problems/online-stock-span/
  * 901
- * Stack
+ * Monotonic Stack
+ * range query
  */
 public class StockSpanner {
     /**

@@ -29,6 +29,14 @@ public class MeetingScheduler {
         }
     }
 
+    /**
+     * Sort intervals by beginTime
+     * If there is an overlap between two intervals, return the first overlap that is >= duration
+     * @param slots1
+     * @param slots2
+     * @param duration
+     * @return
+     */
     public List<Integer> minAvailableDuration(int[][] slots1, int[][] slots2, int duration) {
         PriorityQueue<Interval> pq = new PriorityQueue<>();
 
@@ -46,13 +54,21 @@ public class MeetingScheduler {
                 prev = intv;
             } else {
                 if (intv.begin >= prev.begin && intv.end <= prev.end) {
+                    /**
+                     * current interval completely overlaps with previous
+                     */
                     if (intv.end - intv.begin >= duration)
                         return Arrays.asList(intv.begin, intv.begin + duration);
                 } else if (intv.begin > prev.end) {
+                    /**
+                     * no overlap, so ignore
+                     */
                     prev = intv;
                 } else {
-                    if (prev.end - intv.begin >= duration)
+                    if (prev.end - intv.begin >= duration) {
+                        // there is an overlap. Check if it is >= duration
                         return Arrays.asList(intv.begin, intv.begin + duration);
+                    }
                     prev = intv;
                 }
             }

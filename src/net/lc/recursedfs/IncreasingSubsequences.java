@@ -35,11 +35,21 @@ public class IncreasingSubsequences {
         return result;
     }
 
+    /**
+     * Combination algorithm.
+     *
+     * To get unique increasing subsequences, assign each number to a prime, so that their multiplication will determine uniqueness.
+     * @param curIndex
+     * @param nums
+     * @param stack
+     * @param multResult
+     */
     private void subseq(int curIndex, int[] nums, Stack<Integer> stack, int multResult) {
         if (curIndex >= nums.length) return;
 
         for (int i = curIndex+1; i < nums.length; i++) {
             if (nums[i] >= nums[curIndex]) {
+                // only consider non-decreasing
                 stack.push(nums[i]);
 
                 int res = multResult * primeMap.get(nums[i]);

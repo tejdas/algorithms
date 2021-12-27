@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * 84
- * Stack
+ * Monotonic Stack
  */
 public class LargestRectangleInHistogram {
     /**

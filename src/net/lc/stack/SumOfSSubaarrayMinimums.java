@@ -6,7 +6,7 @@ import java.util.Stack;
 /**
  * 907
  * https://leetcode.com/problems/sum-of-subarray-minimums/
- * Stack solution
+ * Monotonic Stack solution
  * NLE
  * PLE
  */

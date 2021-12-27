@@ -6,7 +6,7 @@ import java.util.Stack;
 
 /**
  * https://leetcode.com/problems/validate-stack-sequences/submissions/
- * Stack solution
+ * Monotonic Stack solution
  * 946
  */
 public class ValidateStackSequences {

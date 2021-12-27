@@ -37,14 +37,26 @@ public class SearchInRotatedSortedArray {
             }
 
             if (array[left] < array[median]) {
+                /**
+                 * left half is sorted; rotation happens on the right half
+                 */
                 if (searchItem >= array[left] && searchItem <= array[median]) {
-                    right = median;
+                    /**
+                     * item between left and median; so search between left and median-1
+                     */
+                    right = median+1;
                 } else {
                     left = median+1;
                 }
             } else {
+                /**
+                 * right-half is sorted; rotation happens on the left half
+                 */
                 if (searchItem >= array[median] && searchItem <= array[right]) {
-                    left = median;
+                    /**
+                     * item between median+1 and right; so search between median+1 and right
+                     */
+                    left = median+1;
                 } else {
                     right = median-1;
                 }

@@ -2,6 +2,9 @@ package net.lc.stack;
 
 import java.util.*;
 
+/**
+ * Monotonic stack
+ */
 public class BasicCalculatorII {
     private static final Map<Character, Integer> operatorPreference = new HashMap<>();
     static {

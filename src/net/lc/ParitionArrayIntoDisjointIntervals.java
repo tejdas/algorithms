@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * 915
+ * Greedy
  */
 public class ParitionArrayIntoDisjointIntervals {
     public int partitionDisjoint(int[] nums) {

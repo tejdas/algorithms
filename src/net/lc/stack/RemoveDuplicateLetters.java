@@ -6,7 +6,7 @@ import java.util.Stack;
  * https://leetcode.com/problems/remove-duplicate-letters/
  * 316
  * 1081
- * Stack
+ * Monotonic Stack
  */
 public class RemoveDuplicateLetters {
     public String removeDuplicateLetters(String str) {

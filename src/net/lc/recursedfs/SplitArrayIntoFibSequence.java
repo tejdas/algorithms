@@ -56,8 +56,6 @@ public class SplitArrayIntoFibSequence {
                 if (secondVal == -1)
                     break;
 
-                //System.out.println(firstVal + "    " + secondVal);
-
                 stack.push(secondVal);
 
                 if (dfs(array, j + 1, secondVal, firstVal, stack)) {

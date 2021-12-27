@@ -37,6 +37,9 @@ public class FindInMountainArray {
 
         int peakIndex = -1;
 
+        /**
+         * Find peak-index using binary-search
+         */
         while (left < right) {
             int mid = (left+right)/2;
 
@@ -61,12 +64,19 @@ public class FindInMountainArray {
         System.out.println(peakIndex);
         if (mountainArr.get(peakIndex) == target) return peakIndex;
 
+        /**
+         * Target might occur twice on the left and right of peakIndex.
+         * Now binary-search between 0 and peakIndex-1 for target
+         */
         left = 0;
         right = peakIndex-1;
 
         int targetIndex = getIndex(left, right, target, mountainArr, true);
         if (targetIndex != -1) return targetIndex;
 
+        /**
+         * Binary-search between peakIndex+1 and right for target
+         */
         left = peakIndex+1;
         right = origright;
 

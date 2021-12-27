@@ -8,6 +8,7 @@ import java.util.Map;
 /**
  * 115
  * Dynamic Programming
+ * two-dimensional memo array
  */
 public class DistinctSubsequences {
     public int numDistinct(String s, String t) {
@@ -22,6 +23,9 @@ public class DistinctSubsequences {
          */
         int[][] memo = new int[sarray.length][tarray.length];
 
+        /**
+         * For t, if a char is repeating, keep track of each char's positions in a list.
+         */
         Map<Character, List<Integer>> map = new HashMap<>();
         for (int i = 0; i < tarray.length; i++) {
             char c = tarray[i];

@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * 42
  * https://leetcode.com/problems/trapping-rain-water/submissions/
- * Stack
+ * Monotonic Stack
  * We need to find higher elevations that can trap rainwater.
  * We can ignore all the lower elevations in-between two higher elevations.
  *
@@ -53,15 +53,11 @@ public class TrappingRainWater {
             if (p.height < stack.peek().height) {
                 stack.push(p);
             } else {
-                Pair lastPopped = null;
-
                 while (!stack.isEmpty() && p.height >= stack.peek().height) {
-                    lastPopped = stack.pop();
-                }
-
-                if (stack.isEmpty()) {
-                    if (lastPopped != null) {
-                        indexList.add(lastPopped.index);
+                    Pair popped = stack.pop();
+                    if (stack.isEmpty()) {
+                        // popped serves as a boundary; so we need to save it.
+                        indexList.add(popped.index);
                     }
                 }
                 stack.push(p);

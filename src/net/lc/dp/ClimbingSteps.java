@@ -2,7 +2,7 @@ package net.lc.dp;
 
 /**
  * 70
- * Recursion
+ * bottom-up
  * Dynamic Programming
  */
 public class ClimbingSteps {
@@ -14,6 +14,7 @@ public class ClimbingSteps {
         for (int i = 1; i <= numSteps; i++) {
             int totalDistinctWays = 0;
 
+            // memo[i] = sum of memo[i-allowedStep] for all allowed steps.
             for (int allowedStep : allowedSteps) {
                 if (i - allowedStep >= 0) {
                     totalDistinctWays += memo[i - allowedStep];

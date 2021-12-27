@@ -89,26 +89,6 @@ public class BinarySearchTreeToLinkedListConverter {
         root = BinarySearchTreeBuilder.buildBSTFromPreOrderList(array);
         root.traverseInOrder();
 
-
-        /*
-        convertBSTToDoubleLinkedListNonRecurse(root);
-
-        System.out.println();
-
-        TreeNode cur1 = first;
-        while (cur1 != null) {
-            System.out.print(cur1.value + "   ");
-            cur1 = cur1.right;
-        }
-        System.out.println();
-
-        TreeNode cur2 = prevNode;
-        while (cur2 != null) {
-            System.out.print(cur2.value + "   ");
-            cur2 = cur2.left;
-        }
-        */
-
         System.out.println();
         TreeNode root2 = treeToDoublyList(root);
         TreeNode root3 = root2;

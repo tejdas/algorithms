@@ -5,6 +5,9 @@ import java.util.Arrays;
 /**
  * 322
  * Dynamic Programming
+ * Bottom-up
+ * Memoization
+ *
  */
 public class CoinChange {
     public int coinChange(int[] coins, int amount) {

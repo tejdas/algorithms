@@ -4,7 +4,8 @@ import java.util.Stack;
 
 /**
  * 739
- * Stack
+ * Monotonic Stack
+ * range-query: next warmer day (or number of days since current day, for a warmer temperature)
  */
 public class DailyTemperatures {
     static class Pair {

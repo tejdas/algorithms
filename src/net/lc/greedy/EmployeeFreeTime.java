@@ -39,6 +39,16 @@ public class EmployeeFreeTime {
         }
     }
 
+    /**
+     * Instead of using Interval, we need to use Boundary here. Because there are multiple employees, and their
+     * interviews could overlap in a nested manner.
+     *
+     * So we will use boundaries. We will keep track of nesting depth. For Begin, increment the depth.
+     * For End, decrement the depth.
+     * When the depth is 0, we can record the time, and then use it when a new Begin starts after that.
+     * @param schedule
+     * @return
+     */
     public List<Interval> employeeFreeTime(List<List<Interval>> schedule) {
         PriorityQueue<Boundary> pq = new PriorityQueue<>();
 
@@ -63,6 +73,9 @@ public class EmployeeFreeTime {
             if (b.isBegin) {
                 if (depth == 0) {
                     if (lastEnd != -1) {
+                        /**
+                         * do not consider -infinite to b.time as a boundary, because this is open-ended.
+                         */
                         if (lastEnd < b.time) {
                             output.add(new Interval(lastEnd, b.time));
                         }
@@ -72,6 +85,7 @@ public class EmployeeFreeTime {
             } else {
                 depth--;
                 if (depth == 0) {
+                    // end of overlapped intervals, so record this time to be used for beginning of another free interval.
                     lastEnd = b.time;
                 }
             }

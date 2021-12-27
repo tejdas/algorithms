@@ -25,7 +25,7 @@ interface NestedInteger {
 public class FlattenNestedListIterator implements Iterator<Integer> {
     static class ListInfo {
         List<NestedInteger> ni;
-        int pos = 0;
+        int cursor = 0;
 
         public ListInfo(List<NestedInteger> ni) {
             this.ni = ni;
@@ -44,16 +44,16 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
             final FlattenNestedListIterator.ListInfo info = stack.peek();
 
             final List<NestedInteger> list = info.ni;
-            if (info.pos == list.size()) {
+            if (info.cursor == list.size()) {
                 stack.pop();
                 continue;
             }
 
-            final NestedInteger obj = list.get(info.pos);
+            final NestedInteger obj = list.get(info.cursor);
             if (obj.isInteger()) {
                 return true;
             } else {
-                info.pos++;
+                info.cursor++;
                 stack.push(new FlattenNestedListIterator.ListInfo(obj.getList()));
             }
 
@@ -66,7 +66,7 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
 
         final FlattenNestedListIterator.ListInfo info = stack.peek();
         final List<NestedInteger> list = info.ni;
-        final NestedInteger obj = list.get(info.pos++);
+        final NestedInteger obj = list.get(info.cursor++);
         if (obj.isInteger()) {
             return obj.getInteger();
         }

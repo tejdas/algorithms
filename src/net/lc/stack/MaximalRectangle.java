@@ -5,7 +5,7 @@ import java.util.Stack;
 
 /**
  * 85
- * Stack
+ * Monotonic Stack
  */
 public class MaximalRectangle {
     private int largestRectangleArea(int[] heights) {

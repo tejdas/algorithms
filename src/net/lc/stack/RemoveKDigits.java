@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * 402
  * https://leetcode.com/problems/remove-k-digits/
- * Stack
+ * Monotonic Stack
  * Greedy
  */
 public class RemoveKDigits {

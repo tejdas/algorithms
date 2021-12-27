@@ -76,9 +76,7 @@ class MeetingRoomsII {
         for (CKey key : array) {
             if (key.isBegin) {
                 concurrentMeetingCount++;
-                if (concurrentMeetingCount > minConfRoomsNeeded) {
-                    minConfRoomsNeeded = concurrentMeetingCount;
-                }
+                minConfRoomsNeeded = Math.max(minConfRoomsNeeded, concurrentMeetingCount);
             } else {
                 concurrentMeetingCount--;
             }

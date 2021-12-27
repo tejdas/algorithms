@@ -40,8 +40,10 @@ public class RemoveCoveredIntervals {
                 prev = intv;
             } else {
                 if (intv.begin >= prev.begin && intv.end <= prev.end) {
+                    // current interval overlaps with previous interval, so we can remove current interval
                     count++;
                 } else if (intv.begin > prev.end) {
+                    // no overlap
                     prev = intv;
                 } else {
                     prev = intv;

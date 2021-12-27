@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 /**
  * https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/submissions/
  * Priority-Queue (heap)
+ * Matrix traversal
  * 378
  */
 public class KthSmallestInSortedMatrix {
