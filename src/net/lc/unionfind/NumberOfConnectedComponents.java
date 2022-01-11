@@ -33,9 +33,12 @@ public class NumberOfConnectedComponents {
     }
 
     private int find(int[] roots, int id) {
-        while(roots[id] != id) {
-            id = roots[id];
+
+        int curId = id;
+        while(roots[curId] != curId) {
+            curId = roots[curId];
         }
-        return id;
+        roots[id] = curId;
+        return curId;
     }
 }
